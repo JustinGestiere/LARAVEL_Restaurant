@@ -10,6 +10,7 @@
             <tr>
                 <th>ID</th>
                 <th>Nom</th>
+                <th>Restaurant</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -18,6 +19,9 @@
                 <tr>
                     <td>{{ $category->id }}</td>
                     <td>{{ $category->name }}</td>
+                    <td>
+                        <a href="{{ route('restaurants.show', $category->restaurant->id) }}" title="Voir le restaurant : ">{{ $category->restaurant->name }}</a>
+                    </td>
                     <td>
                         <div style="display: flex;">
                             <a style="margin-right: 8px;" href="{{ route('categories.show', $category->id) }}">Voir</a>

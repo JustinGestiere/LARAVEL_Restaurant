@@ -13,4 +13,9 @@ class Restaurant extends Model
 	protected $fillable = [
 		"name"
 	];
+
+    public function categories ()
+    {
+        return $this->hasMany(Category::class);
+    }
 }

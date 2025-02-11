@@ -13,4 +13,8 @@
         <li>updated_at : {{ $category->updated_at }}</li>
     </ul>
 
+    <h2>Restaurant : {{ $category->restaurant->name }}</h2>
+
+    <p>Aller au restaurant : <a href="{{ route('restaurants.show', $category->restaurant->id) }}" title="Voir le restaurant">{{ $category->restaurant->name }}</a></p>
+
 @endsection

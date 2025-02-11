@@ -9,8 +9,13 @@ class Category extends Model
 {
     //
     use HasFactory;
-    protected $table = "Categories";
+    protected $table = "categories";
 	protected $fillable = [
 		"name"
 	];
+
+    public function restaurant()
+    {
+        return $this->belongsTo(Restaurant::class);
+    }
 }
