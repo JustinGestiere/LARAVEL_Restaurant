@@ -10,8 +10,10 @@ class Restaurant extends Model
     //
     use HasFactory;
     protected $table = "restaurants";
+
 	protected $fillable = [
-		"name"
+		"name",
+        "restaurant_id"
 	];
 
     public function categories ()
