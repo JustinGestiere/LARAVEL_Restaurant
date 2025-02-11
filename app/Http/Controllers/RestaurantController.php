@@ -9,12 +9,16 @@ class RestaurantController extends Controller
 {
     public function index() {
         return view('restaurants.index', [
-            'restaurants' => Restaurant::all()
+            // 'restaurants' => Restaurant::all()
+            'restaurants' => Restaurant::with('categories')->get()
         ]);
     }
 
     public function create() {
-        return view('restaurants.create');
+        // return view('restaurants.create');
+        return view('restaurants.create', [
+            'restaurants' => Restaurant::with('categories')->get()
+        ]);
     }
 
     public function store(Request $request) {

@@ -22,7 +22,6 @@ class DatabaseSeeder extends Seeder
         //    'email' => 'test@example.com',
         //]);
 
-
         Restaurant::factory(3)->create();
         Category::factory(12)->create();
 
