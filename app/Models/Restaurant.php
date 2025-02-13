@@ -12,8 +12,7 @@ class Restaurant extends Model
     protected $table = "restaurants";
 
 	protected $fillable = [
-		"name",
-        "restaurant_id"
+		"name"
 	];
 
     public function categories ()

@@ -1,15 +1,15 @@
 @extends('layout.main')
 
 @section('main')
-    <h1>Modification restaurant</h1>
+    <h1>Modification item</h1>
 
-    <a href="{{ route('restaurants.index') }}">Retour à la liste</a>
+    <a href="{{ route('items.index') }}">Retour à la liste</a>
 
-    <form action="{{ route('restaurants.update', $restaurant->id) }}" method="POST">
+    <form action="{{ route('items.update', $item->id) }}" method="POST">
         @csrf
         @method('put')
         <label for="name">Nom : </label>
-        <input type="text" id="name" name="name" placeholder="Nom" value="{{ $restaurant->name }}">
+        <input type="text" id="name" name="name" placeholder="Nom" value="{{ $item->name }}">
         <button type="submit">Envoyer</button>
     </form>
 @endsection
