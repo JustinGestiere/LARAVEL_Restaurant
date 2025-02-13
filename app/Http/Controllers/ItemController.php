@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Item;
+use App\Models\Category;
 
 class ItemController extends Controller
 {
@@ -27,6 +28,12 @@ class ItemController extends Controller
 
     public function show($id) {
         return view('items.show', [
+            'item' => Item::findOrFail($id)
+        ]);
+    }
+
+    public function edit($id) {
+        return view('items.edit', [
             'item' => Item::findOrFail($id)
         ]);
     }
