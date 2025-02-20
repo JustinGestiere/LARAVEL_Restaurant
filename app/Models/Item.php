@@ -9,19 +9,19 @@ class Item extends Model
 {
     //
     use HasFactory;
-    protected $table = "items";
+    protected $table = 'items';
     protected $fillable = [
-        "name",
-        "cost",
-        "price",
-        "is_active",
-        "category_id"
+        'name',
+        'cost',
+        'price',
+        'is_active',
+        'category_id'
     ];
 
     protected $casts = [
-        "is_active" => "boolean",
-        "cost" => "integer",
-        "price" => "integer"
+        'is_active' => 'boolean',
+        'cost' => 'integer',
+        'price' => 'integer'
     ];
 
     public function categories()

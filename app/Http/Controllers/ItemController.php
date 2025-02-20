@@ -15,14 +15,18 @@ class ItemController extends Controller
     }
 
     public function create() {
+        // Récupère toutes les catégories
+        $categories = Category::all();
+    
         return view('items.create', [
-            'items' => Item::with('categories')->get()
+            'categories' => $categories  // Passe la variable $categories à la vue
         ]);
     }
+    
 
     public function store(Request $request) {
         Item::create( $request->all() );
-
+        
         return redirect()->route('items.index');
     }
 

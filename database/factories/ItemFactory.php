@@ -25,7 +25,7 @@ class ItemFactory extends Factory
             'cost' => $cost,
             'price' => $cost + fake()->numberBetween(200, 500),
             'is_active' => fake()->boolean(50),
-            'category_id' => random_int(1, 12)
+            'category_id' => $category->id + random_int(1, 12)
         ];
     }
 }

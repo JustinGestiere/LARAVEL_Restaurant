@@ -13,10 +13,10 @@
         @csrf
         <div>
             <label for="name">Nom : </label>
-            <input type="text" id="name" name="name" placeholder="Nom">
+            <input type="text" id="name" name="name" placeholder="Nom" required>
         </div>
         <div>
-            <label for="restaurant_id">Restaurant</label>
+            <label for="restaurant_id">Restaurant : </label>
             <select name="restaurant_id" id="restaurant_id">
                 <option value="">Choisir un restaurant</option>
                 @foreach($restaurants as $restaurant)
