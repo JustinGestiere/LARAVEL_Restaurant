@@ -10,7 +10,7 @@ class ItemController extends Controller
 {
     public function index() {
         return view('items.index', [
-            'items' => Item::with('categories')->get()
+            'items' => Item::with('category')->get() //modification du categories en category
         ]);
     }
 

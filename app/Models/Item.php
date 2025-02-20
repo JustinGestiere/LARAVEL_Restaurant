@@ -24,7 +24,7 @@ class Item extends Model
         'price' => 'integer'
     ];
 
-    public function categories()
+    public function category() //modification du function categories en category
     {
         return $this->belongsTo(Category::class);
     }
