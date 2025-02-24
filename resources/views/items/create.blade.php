@@ -20,6 +20,10 @@
             <input type="number" id="price" name="price" placeholder="Prix" required>
         </div>
         <div>
+            <label for="item_id">Coût : </label>
+            <input type="number" id="cost" name="cost" placeholder="Cout" required>
+        </div>
+        <div>
             <label for="category_id">Catégorie : </label>
             <select name="category_id" id="category_id" required>
                 <option value="">Choisir une catégorie</option>

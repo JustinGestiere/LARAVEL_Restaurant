@@ -11,6 +11,7 @@
                 <th>ID</th>
                 <th>Nom</th>
                 <th>Prix</th>
+                <th>Coûts</th>
                 <th>Catégories</th>
                 <th>Actions</th>
             </tr>
@@ -20,7 +21,8 @@
                 <tr>
                     <td>{{ $item->id }}</td>
                     <td>{{ $item->name }}</td>
-                    <td>ah</td>
+                    <td>{{ $item->price/100 }} €</td>
+                    <td>{{ $item->cost/100 }} €</td>
                     <td>
                         <a href="{{ route('categories.show', $item->category->id) }}" title="Voir la categorie : ">{{ $item->category->name }}</a>
                     </td>

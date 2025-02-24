@@ -13,7 +13,7 @@
             <input type="text" id="name" name="name" placeholder="Nom" value="{{ $category->name }}">
         </div>
         <div>
-        <label for="restaurant_id">Restaurant</label>
+            <label for="restaurant_id">Restaurant</label>
             <select name="restaurant_id" id="restaurant_id">
                 @foreach($restaurants as $restaurant)
                     @if($restaurant->id == $category->restaurant->id)

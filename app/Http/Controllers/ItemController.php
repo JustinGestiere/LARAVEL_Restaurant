@@ -38,7 +38,8 @@ class ItemController extends Controller
 
     public function edit($id) {
         return view('items.edit', [
-            'item' => Item::findOrFail($id)
+            'item' => Item::findOrFail($id),
+            'categories' => Category::all() // Ajout de la variable $categories
         ]);
     }
 
