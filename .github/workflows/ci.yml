@@ -1,33 +1,29 @@
-name: Déploiement sur VPS
+name: CI
 
-on:
-  push:
-    branches:
-      - main  # Changer si ton branche principale a un autre nom
+on: [push]
 
 jobs:
   deploy:
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
-
     steps:
-    - name: Cloner le dépôt
-      uses: actions/checkout@v3
-
-    - name: Connexion et Déploiement sur VPS
-      uses: appleboy/ssh-action@v0.1.7
+    - name: Deploy to Server
+      uses: appleboy/ssh-action@v0.1.10
       with:
-        host: ${{ secrets.VPS_HOST }}
-        username: ${{ secrets.VPS_USER }}
-        key: ${{ secrets.VPS_SSH_KEY }}
-        port: 22
+        host: ${{ secrets.SERVER_IP }}
+        username: ${{ secrets.SERVER_USERNAME }}
+        password: ${{ secrets.SERVER_PASSWORD }}
         script: |
-          cd /chemin/vers/ton/projet
-          git pull origin main
-          composer install --no-dev --optimize-autoloader
-          php artisan migrate --force
-          php artisan cache:clear
-          php artisan config:clear
-          php artisan route:clear
-          php artisan view:clear
-          sudo systemctl restart php-fpm
-          sudo systemctl restart nginx
+            cd ${{ secrets.PROJECT_PATH }}
+
+            # Corriger les permissions des dossiers critiques
+            sudo chown -R www-data:www-data storage bootstrap/cache
+            sudo chmod -R 775 storage bootstrap/cache
+
+            # Continuer avec le reste du déploiement
+            git pull
+            composer install --no-dev --optimize-autoloader
+            php artisan config:cache
+            php artisan route:cache
+            php artisan view:clear
+            php artisan migrate --force
