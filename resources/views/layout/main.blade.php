@@ -19,7 +19,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	  <link rel="icon" href="{{ asset('assets/images/favicon.ico') }}" type="image/ico" />
 
-    <title>Gentelella okkkkkkkkkkkkkkkkkkkkkkkk</title>
+    <title>Gentelella</title>
 
     <!-- Bootstrap -->
     <link href="{{ asset('assets/vendors/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
@@ -58,7 +58,7 @@
                 <img src="{{ asset('assets/images/img.jpg') }}" alt="..." class="img-circle profile_img">
               </div>
               <div class="profile_info">
-                <span>Welcome,</span>
+                <span>Welcome test,</span>
                 <h2>John Doe</h2>
               </div>
             </div>
