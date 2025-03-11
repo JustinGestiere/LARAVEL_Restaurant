@@ -16,7 +16,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	  <link rel="icon" href="{{ asset('assets/images/favicon.ico') }}" type="image/ico" />
 
-    <title>Click'n Eate</title>
+    <title>Click'n Eat</title>
 
     <!-- Bootstrap -->
     <link href="{{ asset('assets/vendors/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
