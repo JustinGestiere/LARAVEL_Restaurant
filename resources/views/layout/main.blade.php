@@ -161,7 +161,8 @@
     <script src="{{ asset('assets/vendors/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
 
     <!-- Custom Theme Scripts -->
-    <script src="{{ asset('assets/build/js/custom.min.js') }}"></script>
+    <script src="{{ asset('assets/js/custom.min.js') }}"></script>
+    <script src="{{ asset('assets/js/main.js') }}"></script>
 	
   </body>
 </html>
