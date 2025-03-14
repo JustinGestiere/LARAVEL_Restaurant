@@ -1,6 +1,6 @@
 @extends('layout.main')
 
-@section('main')
+@section('content')
     <h1>Items</h1>
 
     <a href="{{ route('items.create') }}">Créer un item</a>

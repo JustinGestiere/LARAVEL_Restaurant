@@ -1,6 +1,6 @@
 @extends('layout.main')
 
-@section('main')
+@section('content')
     <h1>Categories</h1>
 
     <a href="{{ route('categories.create') }}">Créer une categorie</a>

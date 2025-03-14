@@ -45,6 +45,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/items/{id}/edit', [ItemController::class, 'edit'])->name('items.edit');
     Route::put('/items/{id}/update', [ItemController::class, 'update'])->name('items.update');
     Route::delete('/items/{id}/destroy', [ItemController::class, 'destroy'])->name('items.destroy');
+
+    //route pour le home
+    // Route::get('/layout, [ItemController::class, 'main'])->name('layout.main');
 });
 
 require __DIR__.'/auth.php';
