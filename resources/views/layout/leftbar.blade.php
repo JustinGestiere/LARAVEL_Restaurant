@@ -1,7 +1,7 @@
 <div class="col-md-3 left_col">
     <div class="left_col scroll-view">
         <div class="navbar nav_title" style="border: 0;">
-            <a href="" class="site_title"><i class="fa fa-cutlery"></i> <span>Click'n Eat</span></a>
+            <a href="" class="site_title"><i class="fa fa-cutlery"></i><span>Click'n Eat</span></a>
         </div>
     
         <div class="clearfix"></div>
@@ -22,16 +22,15 @@
             <div class="menu_section">
                 <h3>Espace Admins</h3>
                 <ul class="nav side-menu">
-                    <li><a href=""> <i class="fa fa-home"></i> Home <span class=""></span></a>
-                    </li>
-                    <li><a href="{{ route('restaurants.index') }}"> <i class="fa fa-cutlery"></i> Restaurants <span class=""></span></a>
+                    <!-- <li><a href=""> <i class="fa fa-home"></i>Home <span class=""></span></a></li> -->
+                    <li><a href="{{ route('restaurants.index') }}"> <i class="fa fa-cutlery"></i>Restaurants <span class=""></span></a>
                         <!-- <ul class="nav child_menu">
                             <li><a href="">Créer un restaurant</a></li>
                         </ul> -->
                     </li>
-                    <li><a href="{{ route('categories.index') }}"> <i class="fa fa-table"></i> Catégories <span class=""></span></a>
+                    <li><a href="{{ route('categories.index') }}"> <i class="fa fa-table"></i>Catégories <span class=""></span></a>
                     </li>
-                    <li><a href="{{ route('items.index') }}"> <i class="fa fa-coffee"></i> Items <span class=""></span></a>
+                    <li><a href="{{ route('items.index') }}"> <i class="fa fa-coffee"></i>Items <span class=""></span></a>
                     </li>
                 </ul>
             </div>
@@ -43,10 +42,15 @@
 
         <!-- /menu footer buttons -->
         <div class="sidebar-footer hidden-small">
-            <a data-toggle="tooltip" class="w-100" data-placement="top" title="Logout" href="{{ route('login') }}">
-                <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-            </a>
+            <form method="POST" action="{{ route('logout') }}" id="logout-form">
+                @csrf
+                <button type="submit" class="nav-link btn btn-link p-0">
+                    <i class="nav-icon bi bi-box-arrow-right"></i>
+                    <p class="d-inline">Déconnexion</p>
+                </button>
+            </form>
         </div>
+
         <!-- /menu footer buttons -->
 
 

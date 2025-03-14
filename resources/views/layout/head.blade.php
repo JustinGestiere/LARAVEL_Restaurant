@@ -63,24 +63,32 @@
         </div>
         <nav class="nav navbar-nav">
             <ul class=" navbar-right">
-                <li class="nav-item dropdown open" style="padding-left: 15px;">
-                    <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">John Doe</a>
-                    <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item"  href="javascript:;"> Profile</a>
-                        <a class="dropdown-item"><i class="fa fa-sign-out pull-right"></i>  
-                            <form method="POST" action="{{ route('logout') }}">
-                                @csrf
 
-                                <x-responsive-nav-link :href="route('logout')"
-                                        onclick="event.preventDefault();
-                                                    this.closest('form').submit();">
-                                    {{ __('Log Out') }}
-                                </x-responsive-nav-link>
+                <li class="nav-item dropdown open" style="padding-left: 15px;">
+                    <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
+                        @auth
+                            {{ Auth::user()->name }}
+                        @else
+                            Invité
+                        @endauth
+                    </a>
+                    <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
+                        @auth
+                            <a class="dropdown-item" href="{{ route('profile.edit') }}"> 
+                                {{ __('Profile') }}
+                            </a>
+                            <a class="dropdown-item" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                <i class="nav-icon bi bi-box-arrow-right"></i>
+                                <p class="d-inline">Déconnexion</p>
+                            </a>
+                            <form method="POST" action="{{ route('logout') }}" id="logout-form" style="display: none;">
+                                @csrf
                             </form>
-                        </a>
+                        @else
+                            <a class="dropdown-item" href="{{ route('login') }}">Se connecter</a>
+                        @endauth
                     </div>
-                    
-                </li>
+                </li>  
             </ul>
         </nav>
     </div>
