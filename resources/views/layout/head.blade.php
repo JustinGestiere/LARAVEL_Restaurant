@@ -30,6 +30,29 @@
 
     <!-- Custom Theme Style -->
     <link href="{{ asset('assets/css/custom.min.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <!-- Ajout de Bootstrap CDN pour la mise en forme -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+    /* Supprimer les marges et paddings par défaut */
+    body, html {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+    }
+    /* Utiliser Bootstrap en pleine largeur */
+    .container {
+        max-width: 100%;
+        padding-left: 0;
+        padding-right: 0;
+    }
+    /* Si tu veux que tout le contenu soit centré mais sans marges */
+        .container-fluid {
+        padding-left: 0;
+        padding-right: 0;
+    }
+    </style>
   </head>
     
   <!-- top navigation -->

@@ -1,37 +1,43 @@
 @extends('layout.main')
 
-@section('main')
-    <h1>Modification item</h1>
+@section('content')
+<div class="container mt-5">
+    <h1 class="mb-4">Modification de l'Item</h1>
 
-    <a href="{{ route('items.index') }}">Retour à la liste</a>
+    <a href="{{ route('items.index') }}" class="btn btn-secondary mb-3">Retour à la liste</a>
 
     <form action="{{ route('items.update', $item->id) }}" method="POST">
         @csrf
         @method('put')
-        <div>
-            <label for="name">Nom : </label>
-            <input type="text" id="name" name="name" placeholder="Nom" value="{{ $item->name }}">
+
+        <div class="mb-3">
+            <label for="name" class="form-label">Nom :</label>
+            <input type="text" class="form-control" id="name" name="name" placeholder="Nom de l'item" value="{{ $item->name }}" required>
         </div>
-        <div>
-            <label for="category_id">Category</label>
-            <select name="category_id" id="category_id">
+
+        <div class="mb-3">
+            <label for="category_id" class="form-label">Catégorie :</label>
+            <select name="category_id" id="category_id" class="form-select" required>
                 @foreach($categories as $category)
-                    @if($category->id == $item->category->id)
-                        <option value="{{ $category->id }}" selected="selected">{{ $category->name }}</option>
-                    @else
-                        <option value="{{ $category->id }}">{{ $category->name }}</option>
-                    @endif
+                    <option value="{{ $category->id }}" 
+                        @if($category->id == $item->category->id) selected @endif>
+                        {{ $category->name }}
+                    </option>
                 @endforeach
             </select>
         </div>
-        <div>
-            <label for="name">Price : </label>
-            <input type="text" id="name" name="name" placeholder="Nom" value="{{ $item->price/100 }} €">
+
+        <div class="mb-3">
+            <label for="price" class="form-label">Prix :</label>
+            <input type="number" class="form-control" id="price" name="price" placeholder="Prix" value="{{ $item->price/100 }}" required>
         </div>
-        <div>
-            <label for="name">Coût : </label>
-            <input type="text" id="name" name="name" placeholder="Nom" value="{{ $item->cost/100 }} €">
+
+        <div class="mb-3">
+            <label for="cost" class="form-label">Coût :</label>
+            <input type="number" class="form-control" id="cost" name="cost" placeholder="Coût" value="{{ $item->cost/100 }}" required>
         </div>
-        <button type="submit">Envoyer</button>  
+
+        <button type="submit" class="btn btn-primary">Envoyer</button>
     </form>
+</div>
 @endsection

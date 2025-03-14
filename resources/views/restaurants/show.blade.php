@@ -1,26 +1,29 @@
 @extends('layout.main')
 
-@section('main')
-    <h1>Restaurants</h1>
+@section('content')
+<div class="container mt-5">
+    <h1 class="mb-4">Restaurant</h1>
 
-    <a href="{{ route('restaurants.index') }}">Retour à la liste</a>
-    <a href="{{ route('restaurants.create') }}">Créer un restaurant</a>
+    <a href="{{ route('restaurants.index') }}" class="btn btn-secondary mb-3">Retour à la liste</a>
+    <a href="{{ route('restaurants.create') }}" class="btn btn-primary mb-3">Créer un restaurant</a>
 
-    <ul>
-        <li>id : {{ $restaurant->id }}</li>
-        <li>nom : {{ $restaurant->name }}</li>
-        <li>created_at : {{ $restaurant->created_at }}</li>
-        <li>updated_at : {{ $restaurant->updated_at }}</li>
+    <ul class="list-group mb-4">
+        <li class="list-group-item"><strong>ID :</strong> {{ $restaurant->id }}</li>
+        <li class="list-group-item"><strong>Nom :</strong> {{ $restaurant->name }}</li>
+        <li class="list-group-item"><strong>Créé le :</strong> {{ $restaurant->created_at }}</li>
+        <li class="list-group-item"><strong>Mis à jour le :</strong> {{ $restaurant->updated_at }}</li>
     </ul>
 
-    <h2>Catégories</h2>
+    <h2 class="mb-3">Catégories</h2>
 
-    <ul>
+    <ul class="list-group">
         @foreach($restaurant->categories as $category)
-            <li>
-                <a href="{{ route('categories.show', $category->id) }}" title="Voir la catégorie : ">{{ $category->name }}</a>
+            <li class="list-group-item">
+                <a href="{{ route('categories.show', $category->id) }}" class="text-decoration-none" title="Voir la catégorie : {{ $category->name }}">
+                    {{ $category->name }}
+                </a>
             </li>
         @endforeach
     </ul>
-
+</div>
 @endsection

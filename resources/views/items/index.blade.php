@@ -1,51 +1,66 @@
 @extends('layout.main')
 
 @section('content')
-    <h1>Items</h1>
+<div class="container mt-5">
+    <h1 class="mb-4 text-primary">Items</h1>
 
-    <a href="{{ route('items.create') }}">Créer un item</a>
+    <a href="{{ route('items.create') }}" class="btn btn-success mb-3">
+        <i class="fas fa-plus"></i> Créer un item
+    </a>
 
-    <table border="1">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nom</th>
-                <th>Prix</th>
-                <th>Coûts</th>
-                <th>Catégories</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($items as $item)
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped table-hover">
+            <thead class="table-dark">
                 <tr>
-                    <td>{{ $item->id }}</td>
-                    <td>{{ $item->name }}</td>
-                    <td>{{ $item->price/100 }} €</td>
-                    <td>{{ $item->cost/100 }} €</td>
-                    <td>
-                        <a href="{{ route('categories.show', $item->category->id) }}" title="Voir la categorie : ">{{ $item->category->name }}</a>
-                    </td>
-                    <td>
-                        <div style="display: flex;">
-                            <a style="margin-right: 8px;" href="{{ route('items.show', $item->id) }}">Voir</a>
-                            <a style="margin-right: 8px;" href="{{ route('items.edit', $item->id) }}">Modifier</a>
-                            <form action="{{ route('items.destroy', $item->id) }}" method="POST">
-                                @csrf
-                                @method('delete')
-                                <input type="hidden" name="id" value="{{ $item->id }}">
-                                <button type="submit">Supprimer</button>
-                            </form>
-                        </div>
-                    </td>
+                    <th>ID</th>
+                    <th>Nom</th>
+                    <th>Prix</th>
+                    <th>Coûts</th>
+                    <th>Catégories</th>
+                    <th>Actions</th>
                 </tr>
-            @endforeach
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach($items as $item)
+                    <tr>
+                        <td>{{ $item->id }}</td>
+                        <td>{{ $item->name }}</td>
+                        <td>{{ number_format($item->price / 100, 2) }} €</td>
+                        <td>{{ number_format($item->cost / 100, 2) }} €</td>
+                        <td>
+                            <a href="{{ route('categories.show', $item->category->id) }}" 
+                               class="text-decoration-none text-primary">
+                                {{ $item->category->name }}
+                            </a>
+                        </td>
+                        <td>
+                            <div class="d-flex">
+                                <a href="{{ route('items.show', $item->id) }}" 
+                                   class="btn btn-info btn-sm me-2">
+                                    <i class="fas fa-eye"></i> Voir
+                                </a>
+                                <a href="{{ route('items.edit', $item->id) }}" 
+                                   class="btn btn-warning btn-sm me-2">
+                                    <i class="fas fa-edit"></i> Modifier
+                                </a>
+                                <form action="{{ route('items.destroy', $item->id) }}" method="POST">
+                                    @csrf
+                                    @method('delete')
+                                    <input type="hidden" name="id" value="{{ $item->id }}">
+                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Supprimer</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+</div>
 @endsection
 
 @section('scripts')
-    <script>
-        console.log("scripts !");
-    </script>
+<script>
+    console.log("scripts !");
+</script>
 @endsection

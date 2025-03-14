@@ -1,22 +1,27 @@
 @extends('layout.main')
 
-@section('main')
-    <h1>Items</h1>
+@section('content')
+<div class="container mt-5">
+    <h1 class="mb-4">Détails de l'Item</h1>
 
-    <a href="{{ route('items.index') }}">Retour à la liste</a>
-    <a href="{{ route('items.create') }}">Créer un item</a>
+    <div class="d-flex justify-content-between mb-3">
+        <a href="{{ route('items.index') }}" class="btn btn-secondary">Retour à la liste</a>
+        <a href="{{ route('items.create') }}" class="btn btn-primary">Créer un item</a>
+    </div>
 
-    <ul>
-        <li>id : {{ $item->id }}</li>
-        <li>nom : {{ $item->name }}</li>
-        <li>created_at : {{ $item->created_at }}</li>
-        <li>updated_at : {{ $item->updated_at }}</li>
-        <li>price : {{ $item->price/100 }}€</li>
-        <li>cout : {{ $item->cost/100 }}€</li>
-    </ul>
-    
-    <h2>Category : {{ $item->category->name }}</h2>
+    <div class="card shadow-lg p-4 mb-4">
+        <ul class="list-group">
+            <li class="list-group-item"><strong>ID :</strong> {{ $item->id }}</li>
+            <li class="list-group-item"><strong>Nom :</strong> {{ $item->name }}</li>
+            <li class="list-group-item"><strong>Créé le :</strong> {{ $item->created_at }}</li>
+            <li class="list-group-item"><strong>Mis à jour le :</strong> {{ $item->updated_at }}</li>
+            <li class="list-group-item"><strong>Prix :</strong> {{ $item->price/100 }}€</li>
+            <li class="list-group-item"><strong>Coût :</strong> {{ $item->cost/100 }}€</li>
+        </ul>
+    </div>
 
-    <p>Aller à la category : <a href="{{ route('categories.show', $item->category->id) }}" title="Voir la category">{{ $item->category->name }}</a></p>
+    <h2 class="mb-3">Catégorie : {{ $item->category->name }}</h2>
 
+    <p>Aller à la catégorie : <a href="{{ route('categories.show', $item->category->id) }}" class="btn btn-link" title="Voir la catégorie">{{ $item->category->name }}</a></p>
+</div>
 @endsection
