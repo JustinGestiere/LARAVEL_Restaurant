@@ -6,9 +6,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	  <link rel="icon" href="{{ asset('assets/images/logo.ico') }}" type="image/ico" />
+	  <link rel="icon" href="{{ asset('assets/images/favicon.ico') }}" type="image/ico" />
 
-    <title>Click'n E</title>
+    <title>Click'n Eat</title>
     @yield('styles')
 
     <!-- Bootstrap -->
