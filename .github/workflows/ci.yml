@@ -14,31 +14,16 @@ jobs:
         username: ${{ secrets.SERVER_USERNAME }}
         password: ${{ secrets.SERVER_PASSWORD }}
         script: |
-            set -e  # Arrête le script en cas d'erreur
+            cd ${{ secrets.PROJECT_PATH }}
 
-            echo "Début du déploiement"
-            pwd
-            cd ${{ secrets.PROJECT_PATH }} || exit 1
-
-            echo "Correction des permissions"
+            # Corriger les permissions des dossiers critiques
             sudo chown -R www-data:www-data storage bootstrap/cache
             sudo chmod -R 775 storage bootstrap/cache
 
-            echo "Mise à jour du code"
-            git reset --hard
-            git pull origin main
-
-            echo "Installation des dépendances"
-            composer install --no-dev --optimize-autoloader && echo "Composer OK"
-
-            echo "Nettoyage et cache"
+            # Continuer avec le reste du déploiement
+            git pull
+            composer install --no-dev --optimize-autoloader
             php artisan config:cache
             php artisan route:cache
             php artisan view:clear
             php artisan migrate --force
-
-            echo "Redémarrage du serveur"
-            sudo systemctl restart php8.1-fpm
-            sudo systemctl restart nginx
-
-            echo "Déploiement terminé avec succès 🎉"
