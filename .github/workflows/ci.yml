@@ -28,6 +28,8 @@ jobs:
             # Corriger les permissions des dossiers critiques
             sudo chown -R debian:debian storage bootstrap/cache
             sudo chmod -R 775 storage bootstrap/cache
+            sudo chown -R www-data:www-data /var/www/html/clickneat/storage
+            sudo chmod -R 775 /var/www/html/clickneat/storage
 
             # Continuer avec le reste du déploiement
             sudo git pull
