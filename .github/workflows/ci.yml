@@ -16,14 +16,26 @@ jobs:
         script: |
             cd ${{ secrets.PROJECT_PATH }}
 
+            echo "Connexion réussie !"
+            hostname
+            pwd
+            git status
+
+            git fetch --all
+            git reset --hard origin/main
+            git pull origin main
+
             # Corriger les permissions des dossiers critiques
-            sudo chown -R www-data:www-data storage bootstrap/cache
+            sudo chown -R debian:debian storage bootstrap/cache
             sudo chmod -R 775 storage bootstrap/cache
 
             # Continuer avec le reste du déploiement
-            git pull
+            sudo git pull
             composer install --no-dev --optimize-autoloader
             php artisan config:cache
             php artisan route:cache
             php artisan view:clear
             php artisan migrate --force
+
+            sudo systemctl restart php8.1-fpm
+            sudo systemctl restart nginx
