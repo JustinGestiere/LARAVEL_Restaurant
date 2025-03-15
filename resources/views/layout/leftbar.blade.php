@@ -9,7 +9,7 @@
         <!-- menu profile quick info -->
         <div class="profile clearfix">
             <div class="profile_info">
-            <span>Welco,</span>
+            <span>Welcome,</span>
             <h2>John Doe</h2>
             </div>
         </div>
