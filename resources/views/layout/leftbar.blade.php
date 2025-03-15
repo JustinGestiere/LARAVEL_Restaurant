@@ -1,15 +1,19 @@
 <div class="col-md-3 left_col">
     <div class="left_col scroll-view">
-        <div class="navbar nav_title" style="border: 0;">
-            <a href="" class="site_title"><i class="fa fa-cutlery"></i><span>Click'n Eat</span></a>
-        </div>
+    <div class="navbar nav_title" style="border: 0;">
+        <a href="#" class="navbar-logo d-flex align-items-center text-white ms-3">
+            <img src="{{ asset('assets/images/logo.png') }}" alt="Logo" class="me-2" style="height: 40px;">
+            <h2><span>Click'n Eat</span></h2>
+        </a>
+    </div>
+
     
         <div class="clearfix"></div>
 
         <!-- menu profile quick info -->
         <div class="profile clearfix">
             <div class="profile_info">
-            <span>Welcom,</span>
+            <span>Welcome,</span>
             <h2>John Doe</h2>
             </div>
         </div>
