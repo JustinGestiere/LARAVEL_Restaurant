@@ -13,8 +13,8 @@
         <!-- menu profile quick info -->
         <div class="profile clearfix">
             <div class="profile_info">
-            <h1><span>Welcome,</span></h1>
-            <h2>John Doe</h2>
+            <span><h5>Welcome,</h5></span>
+            <h2>{{ Auth::user()->name }}</h2>
             </div>
         </div>
         <!-- /menu profile quick info -->
