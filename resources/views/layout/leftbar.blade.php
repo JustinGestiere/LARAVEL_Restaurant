@@ -14,7 +14,7 @@
         <div class="profile clearfix">
             <div class="profile_info">
             <span><h5>Welcome,</h5></span>
-            <h2>{{ Auth::user()->name }}</h2>
+            <h2>{{ Auth::user()->prenom }} {{ Auth::user()->name }}</h2>
             </div>
         </div>
         <!-- /menu profile quick info -->
