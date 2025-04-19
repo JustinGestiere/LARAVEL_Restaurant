@@ -23,13 +23,6 @@ Route::get('/dashboard', function() {
 
 // Routes protégées par authentification
 Route::middleware(['auth'])->group(function () {
-    // Routes accessibles uniquement aux admins
-    Route::group(['middleware' => function ($request, $next) {
-        if (Auth::user()->role !== 'admin') {
-            return redirect('/')->with('error', 'Accès refusé');
-        }
-        return $next($request);
-    }], function () {
     // CRUD utilisateurs
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
     Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
@@ -73,7 +66,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/', function () {
         return view('layout/main');
     });
-  }); // Fermeture du groupe de vérification du rôle admin
 });
 
 require __DIR__.'/auth.php';
