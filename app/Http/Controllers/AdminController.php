@@ -9,7 +9,7 @@ use App\Models\Item;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class AdminController extends Controller
+class AdminController extends AdminBaseController
 {
     /**
      * Create a new controller instance.
@@ -18,31 +18,7 @@ class AdminController extends Controller
      */
     public function __construct()
     {
-        // Le middleware auth est déjà appliqué dans les routes
-    }
-
-    /**
-     * Check if the user is an admin.
-     *
-     * @return bool
-     */
-    private function isAdmin()
-    {
-        return Auth::check() && Auth::user()->role === 'admin';
-    }
-
-    /**
-     * Redirect if not admin.
-     *
-     * @return \Illuminate\Http\RedirectResponse|null
-     */
-    private function redirectIfNotAdmin()
-    {
-        if (!$this->isAdmin()) {
-            return redirect('/')->with('error', 'Accès refusé');
-        }
-        
-        return null;
+        // Vérification effectuée dans les méthodes
     }
 
     /**

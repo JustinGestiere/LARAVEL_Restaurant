@@ -6,7 +6,7 @@ use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\HomeController;
 
 // Route d'accueil - accessible à tous
@@ -23,12 +23,12 @@ Route::patch('/profile', [ProfileController::class, 'update'])->middleware('auth
 Route::delete('/profile', [ProfileController::class, 'destroy'])->middleware('auth')->name('profile.destroy');
 
 // Routes admin individuelles (sans groupe)
-Route::get('/admin/users', [UserController::class, 'index'])->middleware('auth')->name('users.index');
-Route::get('/admin/users/create', [UserController::class, 'create'])->middleware('auth')->name('users.create');
-Route::post('/admin/users', [UserController::class, 'store'])->middleware('auth')->name('users.store');
-Route::get('/admin/users/{id}/edit', [UserController::class, 'edit'])->middleware('auth')->name('users.edit');
-Route::put('/admin/users/{id}', [UserController::class, 'update'])->middleware('auth')->name('users.update');
-Route::delete('/admin/users/{id}', [UserController::class, 'destroy'])->middleware('auth')->name('users.destroy');
+Route::get('/admin/users', [AdminUserController::class, 'index'])->middleware('auth')->name('users.index');
+Route::get('/admin/users/create', [AdminUserController::class, 'create'])->middleware('auth')->name('users.create');
+Route::post('/admin/users', [AdminUserController::class, 'store'])->middleware('auth')->name('users.store');
+Route::get('/admin/users/{id}/edit', [AdminUserController::class, 'edit'])->middleware('auth')->name('users.edit');
+Route::put('/admin/users/{id}', [AdminUserController::class, 'update'])->middleware('auth')->name('users.update');
+Route::delete('/admin/users/{id}', [AdminUserController::class, 'destroy'])->middleware('auth')->name('users.destroy');
 
 // Routes restaurants (admin)
 Route::get('/admin/restaurants/create', [RestaurantController::class, 'create'])->middleware('auth')->name('restaurants.create');
