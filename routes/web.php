@@ -13,16 +13,20 @@ use App\Http\Controllers\UserController;
 Route::get('/restaurants', [RestaurantController::class, 'index'])->name('restaurants.index');
 Route::get('/restaurants/{id}/show', [RestaurantController::class, 'show'])->name('restaurants.show');
 
-// Route du dashboard admin avec vérification manuelle du rôle
-Route::get('/dashboard', function() {
-    if (Auth::check() && Auth::user()->role === 'admin') {
-        return app(AdminDashboardController::class)->index();
-    }
-    return redirect('/')->with('error', 'Accès refusé');
-})->middleware(['auth'])->name('dashboard');
+// Route du dashboard admin
+Route::get('/dashboard', [AdminDashboardController::class, 'index'])
+    ->middleware(['auth', 'checkrole:admin'])
+    ->name('dashboard');
 
 // Routes protégées par authentification
 Route::middleware(['auth'])->group(function () {
+    // Routes accessibles par tous les utilisateurs connectés
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    
+    // Routes accessibles uniquement par les admins
+    Route::middleware(['checkrole:admin'])->group(function () {
     // CRUD utilisateurs
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
     Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
@@ -66,6 +70,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/', function () {
         return view('layout/main');
     });
+  }); // Fermeture du groupe admin
 });
 
 require __DIR__.'/auth.php';
