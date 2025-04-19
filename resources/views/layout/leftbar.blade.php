@@ -14,7 +14,11 @@
         <div class="profile clearfix">
             <div class="profile_info">
             <span><h5>Welcome,</h5></span>
-            <h2>{{ Auth::user()->prenom }} {{ Auth::user()->name }}</h2>
+            @if(Auth::check())
+                <h2>{{ Auth::user()->prenom }} {{ Auth::user()->name }}</h2>
+            @else
+                <h2>Guest</h2>
+            @endif
             </div>
         </div>
         <!-- /menu profile quick info -->
@@ -24,6 +28,7 @@
         <!-- sidebar menu -->
         <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
             <div class="menu_section">
+                @if(Auth::check())
                 <h3>Espace Admins</h3>
                 <ul class="nav side-menu">
                     <!-- <li><a href=""> <i class="fa fa-home"></i>Home <span class=""></span></a></li> -->
@@ -37,6 +42,13 @@
                     <li><a href="{{ route('items.index') }}"> <i class="fa fa-coffee"></i>Items <span class=""></span></a>
                     </li>
                 </ul>
+                @else
+                <h3>Menu</h3>
+                <ul class="nav side-menu">
+                    <li><a href="{{ route('restaurants.index') }}"> <i class="fa fa-cutlery"></i>Restaurants <span class=""></span></a></li>
+                    <li><a href="{{ route('login') }}"> <i class="fa fa-sign-in"></i>Connexion <span class=""></span></a></li>
+                </ul>
+                @endif
             </div>
 
         </div>
@@ -46,6 +58,7 @@
 
         <!-- /menu footer buttons -->
         <div class="sidebar-footer hidden-small">
+            @if(Auth::check())
             <form method="POST" action="{{ route('logout') }}" id="logout-form">
                 @csrf
                 <button type="submit" class="nav-link btn btn-link p-0">
@@ -53,6 +66,7 @@
                     <p class="d-inline">Déconnexion</p>
                 </button>
             </form>
+            @endif
         </div>
 
         <!-- /menu footer buttons -->
