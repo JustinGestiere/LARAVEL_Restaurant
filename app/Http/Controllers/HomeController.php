@@ -15,4 +15,14 @@ class HomeController extends Controller
     {
         return view('layout/main');
     }
+    
+    /**
+     * Show the user dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function dashboard()
+    {
+        return view('dashboard');
+    }
 }
