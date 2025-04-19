@@ -5,20 +5,31 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\AdminDashboardController;
-
-Route::get('/dashboard', [AdminDashboardController::class, 'index'])
-    ->middleware(['auth', 'role:admin'])
-    ->name('dashboard');
-
 use App\Http\Controllers\UserController;
 
 // Routes publiques pour afficher les restaurants
 Route::get('/restaurants', [RestaurantController::class, 'index'])->name('restaurants.index');
 Route::get('/restaurants/{id}/show', [RestaurantController::class, 'show'])->name('restaurants.show');
 
-Route::middleware(['auth', 'role:admin'])->group(function () {
+// Route du dashboard admin avec vérification manuelle du rôle
+Route::get('/dashboard', function() {
+    if (Auth::check() && Auth::user()->role === 'admin') {
+        return app(AdminDashboardController::class)->index();
+    }
+    return redirect('/')->with('error', 'Accès refusé');
+})->middleware(['auth'])->name('dashboard');
+
+// Routes protégées par authentification
+Route::middleware(['auth'])->group(function () {
+    // Routes accessibles uniquement aux admins
+    Route::group(['middleware' => function ($request, $next) {
+        if (Auth::user()->role !== 'admin') {
+            return redirect('/')->with('error', 'Accès refusé');
+        }
+        return $next($request);
+    }], function () {
     // CRUD utilisateurs
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
     Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
@@ -62,6 +73,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/', function () {
         return view('layout/main');
     });
+  }); // Fermeture du groupe de vérification du rôle admin
 });
 
 require __DIR__.'/auth.php';
