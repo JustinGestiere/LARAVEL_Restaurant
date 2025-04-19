@@ -9,7 +9,7 @@ use App\Models\Item;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class AdminController extends AdminBaseController
+class AdminController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -18,20 +18,16 @@ class AdminController extends AdminBaseController
      */
     public function __construct()
     {
-        // Vérification effectuée dans les méthodes
+        // L'authentification est gérée dans les routes
     }
 
     /**
      * Show the admin dashboard.
      *
-     * @return \Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Contracts\View\View
      */
     public function dashboard()
     {
-        $redirect = $this->redirectIfNotAdmin();
-        if ($redirect) {
-            return $redirect;
-        }
 
         $nbClients = User::where('role', 'client')->count();
         $nbAdmins = User::where('role', 'admin')->count();
