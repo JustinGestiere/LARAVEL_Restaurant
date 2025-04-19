@@ -61,8 +61,6 @@ Route::middleware('auth')->prefix('admin')->group(function () {
 });
 
 // Page d'accueil
-Route::get('/', function () {
-    return view('layout/main');
-});
+Route::get('/', [HomeController::class, 'index']);
 
 require __DIR__.'/auth.php';
