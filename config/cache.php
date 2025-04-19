@@ -105,4 +105,14 @@ return [
 
     'prefix' => env('CACHE_PREFIX', Str::slug(env('APP_NAME', 'laravel'), '_').'_cache_'),
 
+    /*
+    |--------------------------------------------------------------------------
+    | Route Collection Caching
+    |--------------------------------------------------------------------------
+    |
+    | Here we specify whether the route collection should be cached or not.
+    | This is disabled by default since it can cause issues with closures.
+    |
+    */
+    'cache' => false,
 ];
