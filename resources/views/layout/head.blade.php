@@ -66,30 +66,37 @@
             <ul class=" navbar-right">
                 @auth
 
-                <li class="nav-item dropdown open" style="padding-left: 15px;">
-                    <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
+                <li class="nav-item dropdown" style="padding-left: 15px;">
+                    <a href="#" class="user-profile dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                         @auth
                             {{ Auth::user()->prenom }} {{ Auth::user()->name }}
                         @else
                             Invité
                         @endauth
                     </a>
-                    <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
+                    <ul class="dropdown-menu dropdown-usermenu pull-right">
                         @auth
-                            <a class="dropdown-item" href="{{ route('profile.edit') }}"> 
-                                {{ __('Profile') }}
-                            </a>
-                            <a class="dropdown-item" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                <i class="nav-icon bi bi-box-arrow-right"></i>
-                                <p class="d-inline">Déconnexion</p>
-                            </a>
+                            <li>
+                                <a class="dropdown-item" href="{{ route('profile.edit') }}"> 
+                                    <i class="fa fa-user"></i> {{ __('Profile') }}
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                    <i class="fa fa-sign-out"></i> Déconnexion
+                                </a>
+                            </li>
                             <form method="POST" action="{{ route('logout') }}" id="logout-form" style="display: none;">
                                 @csrf
                             </form>
                         @else
-                            <a class="dropdown-item" href="{{ route('login') }}">Se connecter</a>
+                            <li>
+                                <a class="dropdown-item" href="{{ route('login') }}">
+                                    <i class="fa fa-sign-in"></i> Se connecter
+                                </a>
+                            </li>
                         @endauth
-                    </div>
+                    </ul>
                 </li>  
             </ul>
         @endauth
