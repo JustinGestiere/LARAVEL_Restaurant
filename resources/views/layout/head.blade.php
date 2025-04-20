@@ -65,14 +65,6 @@
         <nav class="nav navbar-nav">
             <ul class=" navbar-right">
                 @auth
-                    @if(Auth::user()->role == 'admin')
-                    <li class="nav-item" style="padding-top: 8px;">
-                        <a href="{{ route('users.index') }}" class="btn btn-sm btn-primary">
-                            <i class="fa fa-users"></i> Gestion Utilisateurs
-                        </a>
-                    </li>
-                    @endif
-                @endauth
 
                 <li class="nav-item dropdown open" style="padding-left: 15px;">
                     <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">

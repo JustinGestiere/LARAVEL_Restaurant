@@ -29,20 +29,48 @@
         <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
             <div class="menu_section">
                 @if(Auth::check())
-                <h3>Espace Admins</h3>
+                <h3>Menu Principal</h3>
                 <ul class="nav side-menu">
-                    <!-- <li><a href=""> <i class="fa fa-home"></i>Home <span class=""></span></a></li> -->
+                    <li><a href="{{ route('dashboard') }}"> <i class="fa fa-dashboard"></i>Tableau de bord <span class=""></span></a></li>
+                    
+                    <!-- Section Admin - visible uniquement pour les administrateurs -->
                     @if(Auth::user()->role == 'admin')
-                    <li><a href="{{ route('users.index') }}"> <i class="fa fa-users"></i>Gestion Utilisateurs <span class=""></span></a></li>
+                    <li><a><i class="fa fa-user-shield"></i> Administration <span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                            <li><a href="{{ route('users.index') }}"><i class="fa fa-users"></i> Gestion Utilisateurs</a></li>
+                            <li><a href="{{ route('users.create') }}"><i class="fa fa-user-plus"></i> Ajouter Utilisateur</a></li>
+                        </ul>
+                    </li>
                     @endif
-                    <li><a href="{{ route('restaurants.index') }}"> <i class="fa fa-cutlery"></i>Restaurants <span class=""></span></a>
-                        <!-- <ul class="nav child_menu">
-                            <li><a href="">Créer un restaurant</a></li>
-                        </ul> -->
+                    
+                    <!-- Section Restaurants - visible pour tous les utilisateurs authentifiés -->
+                    <li><a><i class="fa fa-cutlery"></i> Restaurants <span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                            <li><a href="{{ route('restaurants.index') }}"><i class="fa fa-list"></i> Liste des Restaurants</a></li>
+                            @if(Auth::user()->role == 'admin' || Auth::user()->role == 'restaurateur')
+                            <li><a href="{{ route('restaurants.create') }}"><i class="fa fa-plus"></i> Ajouter Restaurant</a></li>
+                            @endif
+                        </ul>
                     </li>
-                    <li><a href="{{ route('categories.index') }}"> <i class="fa fa-table"></i>Catégories <span class=""></span></a>
+                    
+                    <!-- Section Catégories - visible pour tous les utilisateurs authentifiés -->
+                    <li><a><i class="fa fa-table"></i> Catégories <span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                            <li><a href="{{ route('categories.index') }}"><i class="fa fa-list"></i> Liste des Catégories</a></li>
+                            @if(Auth::user()->role == 'admin' || Auth::user()->role == 'restaurateur')
+                            <li><a href="{{ route('categories.create') }}"><i class="fa fa-plus"></i> Ajouter Catégorie</a></li>
+                            @endif
+                        </ul>
                     </li>
-                    <li><a href="{{ route('items.index') }}"> <i class="fa fa-coffee"></i>Items <span class=""></span></a>
+                    
+                    <!-- Section Items - visible pour tous les utilisateurs authentifiés -->
+                    <li><a><i class="fa fa-coffee"></i> Items <span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                            <li><a href="{{ route('items.index') }}"><i class="fa fa-list"></i> Liste des Items</a></li>
+                            @if(Auth::user()->role == 'admin' || Auth::user()->role == 'restaurateur' || Auth::user()->role == 'employe')
+                            <li><a href="{{ route('items.create') }}"><i class="fa fa-plus"></i> Ajouter Item</a></li>
+                            @endif
+                        </ul>
                     </li>
                 </ul>
                 @else
