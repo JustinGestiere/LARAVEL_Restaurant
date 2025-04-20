@@ -4,9 +4,11 @@
 <div class="container mt-5">
     <h1 class="mb-4 text-primary">Restaurants</h1>
 
+    @if(Auth::check())
     <a href="{{ route('restaurants.create') }}" class="btn btn-success mb-3">
         <i class="fas fa-plus"></i> Créer un restaurant
     </a>
+    @endif
 
     <div class="table-responsive">
         <table class="table table-bordered table-striped table-hover">
@@ -28,6 +30,7 @@
                                    class="btn btn-info btn-sm me-2">
                                     <i class="fas fa-eye"></i> Voir
                                 </a>
+                                @if(Auth::check())
                                 <a href="{{ route('restaurants.edit', $restaurant->id) }}" 
                                    class="btn btn-warning btn-sm me-2">
                                     <i class="fas fa-edit"></i> Modifier
@@ -40,6 +43,7 @@
                                         <i class="fas fa-trash"></i> Supprimer
                                     </button>
                                 </form>
+                                @endif
                             </div>
                         </td>
                     </tr>
