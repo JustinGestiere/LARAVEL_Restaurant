@@ -32,6 +32,9 @@
                 <h3>Espace Admins</h3>
                 <ul class="nav side-menu">
                     <!-- <li><a href=""> <i class="fa fa-home"></i>Home <span class=""></span></a></li> -->
+                    @if(Auth::user()->role == 'admin')
+                    <li><a href="{{ route('users.index') }}"> <i class="fa fa-users"></i>Gestion Utilisateurs <span class=""></span></a></li>
+                    @endif
                     <li><a href="{{ route('restaurants.index') }}"> <i class="fa fa-cutlery"></i>Restaurants <span class=""></span></a>
                         <!-- <ul class="nav child_menu">
                             <li><a href="">Créer un restaurant</a></li>
