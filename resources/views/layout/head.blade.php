@@ -92,6 +92,7 @@
                     </div>
                 </li>  
             </ul>
+        @endauth
         </nav>
     </div>
 </div>
