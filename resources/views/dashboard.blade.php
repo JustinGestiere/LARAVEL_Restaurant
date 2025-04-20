@@ -3,22 +3,53 @@
 <div class="container mt-4">
     <h1>Tableau de bord</h1>
     
-    @if(auth()->check() && auth()->user()->role === 'admin')
-        <script>
-            window.location.href = "{{ route('dashboard') }}";
-        </script>
-    @else
-        <div class="row mt-4">
-            <div class="col-md-12">
-                <div class="card mb-4">
-                    <div class="card-header">Bienvenue sur ClickNeat</div>
-                    <div class="card-body">
-                        <h5 class="card-title">Bonjour {{ auth()->user()->prenom }} {{ auth()->user()->name }}</h5>
-                        <p class="card-text">Vous êtes connecté en tant que {{ auth()->user()->role }}.</p>
-                    </div>
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <div class="card mb-4">
+                <div class="card-header bg-primary text-white">Bienvenue sur ClickNeat</div>
+                <div class="card-body">
+                    <h5 class="card-title">Bonjour {{ auth()->user()->prenom }} {{ auth()->user()->name }}</h5>
+                    <p class="card-text">Vous êtes connecté en tant que {{ auth()->user()->role }}.</p>
                 </div>
             </div>
         </div>
+    </div>
+    
+    <!-- Statistiques -->
+    <div class="row">
+        <div class="col-md-3 mb-4">
+            <div class="card border-primary">
+                <div class="card-body text-center">
+                    <h1 class="card-title text-primary">{{ \App\Models\Restaurant::count() }}</h1>
+                    <p class="card-text">Restaurants</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-4">
+            <div class="card border-success">
+                <div class="card-body text-center">
+                    <h1 class="card-title text-success">{{ \App\Models\Category::count() }}</h1>
+                    <p class="card-text">Catégories</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-4">
+            <div class="card border-info">
+                <div class="card-body text-center">
+                    <h1 class="card-title text-info">{{ \App\Models\Item::count() }}</h1>
+                    <p class="card-text">Items</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-4">
+            <div class="card border-danger">
+                <div class="card-body text-center">
+                    <h1 class="card-title text-danger">{{ \App\Models\User::count() }}</h1>
+                    <p class="card-text">Utilisateurs</p>
+                </div>
+            </div>
+        </div>
+    </div>
         
         <div class="row">
             <div class="col-md-6">
