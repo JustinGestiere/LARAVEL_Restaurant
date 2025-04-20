@@ -29,22 +29,54 @@
         <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
             <div class="menu_section">
                 @if(Auth::check())
-                <h3>Espace Admins</h3>
+                <h3>Menu Principal</h3>
                 <ul class="nav side-menu">
-                    <!-- <li><a href=""> <i class="fa fa-home"></i>Home <span class=""></span></a></li> -->
+                    <!-- Tableau de bord - accessible à tous les utilisateurs connectés -->
+                    <li><a href="{{ route('dashboard') }}"> <i class="fa fa-dashboard"></i>Tableau de bord <span class=""></span></a></li>
+                    
+                    <!-- Gestion des utilisateurs - accessible uniquement aux administrateurs -->
                     @if(Auth::user()->role == 'admin')
                     <li><a href="{{ route('users.index') }}"> <i class="fa fa-users"></i>Gestion Utilisateurs <span class=""></span></a></li>
                     @endif
-                    <li><a href="{{ route('dashboard') }}"> <i class="fa fa-dashboard"></i>Tableau de bord <span class=""></span></a></li>
+                    
+                    <!-- Restaurants - différents accès selon les rôles -->
                     <li><a href="{{ route('restaurants.index') }}"> <i class="fa fa-cutlery"></i>Restaurants <span class=""></span></a>
-                        <!-- <ul class="nav child_menu">
-                            <li><a href="">Créer un restaurant</a></li>
-                        </ul> -->
+                        @if(Auth::user()->role == 'admin')
+                        <ul class="nav child_menu">
+                            <li><a href="{{ route('restaurants.create') }}">Créer un restaurant</a></li>
+                        </ul>
+                        @endif
                     </li>
+                    
+                    <!-- Catégories - accessible aux admins et restaurateurs (en lecture seule pour restaurateurs) -->
+                    @if(Auth::user()->role == 'admin' || Auth::user()->role == 'restaurateur')
                     <li><a href="{{ route('categories.index') }}"> <i class="fa fa-table"></i>Catégories <span class=""></span></a>
+                        @if(Auth::user()->role == 'admin')
+                        <ul class="nav child_menu">
+                            <li><a href="{{ route('categories.create') }}">Créer une catégorie</a></li>
+                        </ul>
+                        @endif
                     </li>
+                    @endif
+                    
+                    <!-- Items - accessible aux admins, restaurateurs et employés -->
+                    @if(Auth::user()->role == 'admin' || Auth::user()->role == 'restaurateur' || Auth::user()->role == 'employe')
                     <li><a href="{{ route('items.index') }}"> <i class="fa fa-coffee"></i>Items <span class=""></span></a>
+                        @if(Auth::user()->role == 'admin' || Auth::user()->role == 'restaurateur')
+                        <ul class="nav child_menu">
+                            <li><a href="{{ route('items.create') }}">Créer un item</a></li>
+                        </ul>
+                        @endif
                     </li>
+                    @endif
+                    
+                    <!-- Commandes - accessible à tous les utilisateurs connectés mais avec des fonctionnalités différentes -->
+                    <li><a href="#"> <i class="fa fa-shopping-cart"></i>Commandes <span class=""></span></a></li>
+                    
+                    <!-- Tables - accessible aux restaurateurs et employés -->
+                    @if(Auth::user()->role == 'restaurateur' || Auth::user()->role == 'employe')
+                    <li><a href="#"> <i class="fa fa-th"></i>Tables <span class=""></span></a></li>
+                    @endif
                 </ul>
                 @else
                 <h3>Menu</h3>
