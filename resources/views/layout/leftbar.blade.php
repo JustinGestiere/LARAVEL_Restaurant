@@ -95,13 +95,13 @@
 
 
         <!-- /menu footer buttons -->
-        <div class="sidebar-footer hidden-small">
+        <div class="sidebar-footer">
             @if(Auth::check())
             <form method="POST" action="{{ route('logout') }}" id="logout-form">
                 @csrf
-                <button type="submit" class="nav-link btn btn-link p-0">
-                    <i class="nav-icon bi bi-box-arrow-right"></i>
-                    <p class="d-inline">Déconnexion</p>
+                <button type="submit" class="btn btn-danger btn-block w-100 mt-3 mb-3">
+                    <i class="fa fa-sign-out me-2"></i>
+                    <span>Déconnexion</span>
                 </button>
             </form>
             @endif
