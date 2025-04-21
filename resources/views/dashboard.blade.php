@@ -20,7 +20,7 @@
         <div class="col-md-3 mb-4">
             <div class="card border-primary">
                 <div class="card-body text-center">
-                    <h1 class="card-title text-primary">{{ \App\Models\Restaurant::count() }}</h1>
+                    <h1 class="card-title text-primary">{{ $stats['restaurants'] }}</h1>
                     <p class="card-text">Restaurants</p>
                 </div>
             </div>
@@ -28,7 +28,7 @@
         <div class="col-md-3 mb-4">
             <div class="card border-success">
                 <div class="card-body text-center">
-                    <h1 class="card-title text-success">{{ \App\Models\Category::count() }}</h1>
+                    <h1 class="card-title text-success">{{ $stats['categories'] }}</h1>
                     <p class="card-text">Catégories</p>
                 </div>
             </div>
@@ -36,7 +36,7 @@
         <div class="col-md-3 mb-4">
             <div class="card border-info">
                 <div class="card-body text-center">
-                    <h1 class="card-title text-info">{{ \App\Models\Item::count() }}</h1>
+                    <h1 class="card-title text-info">{{ $stats['items'] }}</h1>
                     <p class="card-text">Items</p>
                 </div>
             </div>
@@ -44,7 +44,7 @@
         <div class="col-md-3 mb-4">
             <div class="card border-danger">
                 <div class="card-body text-center">
-                    <h1 class="card-title text-danger">{{ \App\Models\User::count() }}</h1>
+                    <h1 class="card-title text-danger">{{ $stats['users'] }}</h1>
                     <p class="card-text">Utilisateurs</p>
                 </div>
             </div>
