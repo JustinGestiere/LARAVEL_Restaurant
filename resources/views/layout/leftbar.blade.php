@@ -31,8 +31,10 @@
                 @if(Auth::check())
                 <h3>Menu Principal</h3>
                 <ul class="nav side-menu">
-                    <!-- Tableau de bord - accessible à tous les utilisateurs connectés -->
+                    <!-- Tableau de bord - accessible à tous les utilisateurs connectés sauf employés -->
+                    @if(Auth::user()->role != 'employe')
                     <li><a href="{{ route('dashboard') }}"> <i class="fa fa-dashboard"></i>Tableau de bord <span class=""></span></a></li>
+                    @endif
                     
                     <!-- Gestion des utilisateurs - accessible uniquement aux administrateurs -->
                     @if(Auth::user()->role == 'admin')
@@ -48,8 +50,8 @@
                         @endif
                     </li>
                     
-                    <!-- Catégories - accessible aux admins et restaurateurs (en lecture seule pour restaurateurs) -->
-                    @if(Auth::user()->role == 'admin' || Auth::user()->role == 'restaurateur')
+                    <!-- Catégories - accessible aux admins, restaurateurs et employés (en lecture seule pour restaurateurs et employés) -->
+                    @if(Auth::user()->role == 'admin' || Auth::user()->role == 'restaurateur' || Auth::user()->role == 'employe')
                     <li><a href="{{ route('categories.index') }}"> <i class="fa fa-table"></i>Catégories <span class=""></span></a>
                         @if(Auth::user()->role == 'admin')
                         <ul class="nav child_menu">
@@ -62,7 +64,7 @@
                     <!-- Items - accessible aux admins, restaurateurs et employés -->
                     @if(Auth::user()->role == 'admin' || Auth::user()->role == 'restaurateur' || Auth::user()->role == 'employe')
                     <li><a href="{{ route('items.index') }}"> <i class="fa fa-coffee"></i>Items <span class=""></span></a>
-                        @if(Auth::user()->role == 'admin' || Auth::user()->role == 'restaurateur')
+                        @if(Auth::user()->role == 'admin' || Auth::user()->role == 'restaurateur' || Auth::user()->role == 'employe')
                         <ul class="nav child_menu">
                             <li><a href="{{ route('items.create') }}">Créer un item</a></li>
                         </ul>
