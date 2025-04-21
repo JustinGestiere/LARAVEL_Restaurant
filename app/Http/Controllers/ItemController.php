@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Item;
 use App\Models\Category;
+use Illuminate\Support\Facades\Auth;
 
 class ItemController extends Controller
 {
@@ -37,6 +38,11 @@ class ItemController extends Controller
     }
 
     public function edit($id) {
+        // Vérifie si l'utilisateur est un employé
+        if (Auth::user()->role == 'employe') {
+            return redirect()->route('items.index')->with('error', 'Les employés ne sont pas autorisés à modifier les items.');
+        }
+        
         return view('items.edit', [
             'item' => Item::findOrFail($id),
             'categories' => Category::all() // Ajout de la variable $categories
@@ -44,17 +50,31 @@ class ItemController extends Controller
     }
 
     public function update(Request $request, $id) {
-        $restaurant = Item::findOrFail($id);
+        // Vérifie si l'utilisateur est un employé
+        if (Auth::user()->role == 'employe') {
+            return redirect()->route('items.index')->with('error', 'Les employés ne sont pas autorisés à modifier les items.');
+        }
+        
+        $item = Item::findOrFail($id);
 
-        $restaurant->name = $request->get('name');
-        $restaurant->save();
+        $item->name = $request->get('name');
+        $item->category_id = $request->get('category_id');
+        $item->price = $request->get('price');
+        $item->description = $request->get('description');
+        $item->save();
 
-        return redirect()->route('items.index');
+        return redirect()->route('items.index')->with('success', 'Item modifié avec succès');
     }
 
     public function destroy(Request $request, $id) {
+        // Vérifie si l'utilisateur est un employé
+        if (Auth::user()->role == 'employe') {
+            return redirect()->route('items.index')->with('error', 'Les employés ne sont pas autorisés à supprimer les items.');
+        }
+        
         if($request->get('id') == $id) {
             Item::destroy($id);
+            return redirect()->route('items.index')->with('success', 'Item supprimé avec succès');
         }
         return redirect()->route('items.index');
     }
