@@ -11,7 +11,7 @@ class RestaurantController extends Controller
 {
     public function index() {
         // Si l'utilisateur est un employé, montrer uniquement le restaurant auquel il est attribué
-        if (Auth::user()->role == 'employe') {
+        if (Auth::check() && Auth::user()->role == 'employe') {
             $restaurants = Restaurant::with('categories')
                 ->where('employe_id', Auth::id())
                 ->get();
