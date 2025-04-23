@@ -15,7 +15,8 @@
         </div>
     </div>
     
-    <!-- Statistiques -->
+    <!-- Statistiques (masquées pour les clients) -->
+    @if(auth()->user()->role !== 'client')
     <div class="row">
         <div class="col-md-3 mb-4">
             <div class="card border-primary">
@@ -50,6 +51,7 @@
             </div>
         </div>
     </div>
+    @endif
         
         <div class="row">
             <div class="col-md-6">
