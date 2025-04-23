@@ -1,5 +1,10 @@
 @extends('layout.main')
+@php
+    use Illuminate\Support\Str;
+@endphp
 @section('content')
+{{-- Debug temporaire --}}
+<p style="color:red;font-weight:bold">Rôle détecté : {{ auth()->user()->role }}</p>
 <div class="container mt-4">
     <h1>Tableau de bord</h1>
     
@@ -16,7 +21,7 @@
     </div>
     
     <!-- Statistiques (masquées pour les clients) -->
-    @if(auth()->user()->role !== 'client')
+    @if(Str::lower(trim(auth()->user()->role)) !== 'client')
     <div class="row">
         <div class="col-md-3 mb-4">
             <div class="card border-primary">
