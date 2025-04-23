@@ -54,5 +54,9 @@ Route::get('/items/{id}/edit', [ItemController::class, 'edit'])->middleware('aut
 Route::put('/items/{id}/update', [ItemController::class, 'update'])->middleware('auth')->name('items.update');
 Route::delete('/items/{id}/destroy', [ItemController::class, 'destroy'])->middleware('auth')->name('items.destroy');
 
+// Commandes
+use App\Http\Controllers\OrderController;
+Route::resource('orders', OrderController::class)->middleware('auth');
+
 // Routes d'authentification
 require __DIR__.'/auth.php';
