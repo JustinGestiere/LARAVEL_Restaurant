@@ -68,6 +68,9 @@ class OrderController extends Controller
 
     public function edit(Order $order)
     {
+        if (auth()->user()->role === 'client') {
+            abort(403, 'Les clients ne peuvent pas modifier le statut des commandes.');
+        }
         $this->authorizeOrder($order);
         $restaurants = Restaurant::all();
         $items = Item::all();
@@ -76,6 +79,9 @@ class OrderController extends Controller
 
     public function update(Request $request, Order $order)
     {
+        if (auth()->user()->role === 'client') {
+            abort(403, 'Les clients ne peuvent pas modifier le statut des commandes.');
+        }
         $this->authorizeOrder($order);
         $validated = $request->validate([
             'status' => 'required|string',

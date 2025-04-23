@@ -29,8 +29,10 @@
                         <td>{{ $order->status }}</td>
                         <td>
                             <a href="{{ route('orders.show', $order->id) }}" class="btn btn-info btn-sm me-2">Voir</a>
-                            @if(Auth::user()->role == 'admin' || (Auth::user()->role != 'client' && isset($order->restaurant_id) && Auth::user()->restaurant_id == $order->restaurant_id) || (Auth::user()->role == 'client' && $order->user_id == Auth::id()))
+                            @if(Auth::user()->role == 'admin' || Auth::user()->role == 'restaurateur' || Auth::user()->role == 'employe')
                                 <a href="{{ route('orders.edit', $order->id) }}" class="btn btn-warning btn-sm me-2">Modifier</a>
+                            @endif
+                            @if(Auth::user()->role == 'admin' || (Auth::user()->role != 'client' && isset($order->restaurant_id) && Auth::user()->restaurant_id == $order->restaurant_id) || (Auth::user()->role == 'client' && $order->user_id == Auth::id()))
                                 <form action="{{ route('orders.destroy', $order->id) }}" method="POST" style="display:inline-block;">
                                     @csrf
                                     @method('delete')

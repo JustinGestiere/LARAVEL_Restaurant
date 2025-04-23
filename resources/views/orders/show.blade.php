@@ -24,11 +24,13 @@
             </li>
         @endforeach
     </ul>
+    @if(Auth::user()->role == 'admin' || Auth::user()->role == 'restaurateur' || Auth::user()->role == 'employe')
     <a href="{{ route('orders.edit', $order->id) }}" class="btn btn-warning">Modifier</a>
-    <form action="{{ route('orders.destroy', $order->id) }}" method="POST" style="display:inline-block;">
-        @csrf
-        @method('delete')
-        <button type="submit" class="btn btn-danger">Supprimer</button>
-    </form>
+@endif
+<form action="{{ route('orders.destroy', $order->id) }}" method="POST" style="display:inline-block;">
+    @csrf
+    @method('delete')
+    <button type="submit" class="btn btn-danger">Supprimer</button>
+</form>
 </div>
 @endsection
