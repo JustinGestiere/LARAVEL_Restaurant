@@ -3,8 +3,7 @@
     use Illuminate\Support\Str;
 @endphp
 @section('content')
-{{-- Debug temporaire --}}
-<p style="color:red;font-weight:bold">Rôle détecté : {{ auth()->user()->role }}</p>
+
 <div class="container mt-4">
     <h1>Tableau de bord</h1>
     

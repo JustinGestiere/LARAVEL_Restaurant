@@ -4,7 +4,7 @@
 <div class="container mt-5">
     <h1 class="mb-4 text-primary">Restaurants</h1>
 
-    @if(Auth::check())
+    @if(Auth::check() && Str::lower(trim(auth()->user()->role)) !== 'client')
     <a href="{{ route('restaurants.create') }}" class="btn btn-success mb-3">
         <i class="fas fa-plus"></i> Créer un restaurant
     </a>
@@ -30,7 +30,7 @@
                                    class="btn btn-info btn-sm me-2">
                                     <i class="fas fa-eye"></i> Voir
                                 </a>
-                                @if(Auth::check())
+                                @if(Auth::check() && Str::lower(trim(auth()->user()->role)) !== 'client')
                                 <a href="{{ route('restaurants.edit', $restaurant->id) }}" 
                                    class="btn btn-warning btn-sm me-2">
                                     <i class="fas fa-edit"></i> Modifier
