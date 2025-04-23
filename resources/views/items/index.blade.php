@@ -4,7 +4,7 @@
 <div class="container mt-5">
     <h1 class="mb-4 text-primary">Items</h1>
 
-    @if(Auth::check() && Str::lower(trim(auth()->user()->role)) !== 'client')
+    @if(Auth::check() && Str::lower(trim(Auth::user()->role)) !== 'client')
     <a href="{{ route('items.create') }}" class="btn btn-success mb-3">
         <i class="fas fa-plus"></i> Créer un item
     </a>

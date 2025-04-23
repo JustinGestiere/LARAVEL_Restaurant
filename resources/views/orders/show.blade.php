@@ -24,7 +24,7 @@
             </li>
         @endforeach
     </ul>
-    @if(Auth::user()->role == 'admin' || Auth::user()->role == 'restaurateur' || Auth::user()->role == 'employe')
+    @if(Auth::check() && (Auth::user()->role == 'admin' || Auth::user()->role == 'restaurateur' || Auth::user()->role == 'employe'))
     <a href="{{ route('orders.edit', $order->id) }}" class="btn btn-warning">Modifier</a>
 @endif
 <form action="{{ route('orders.destroy', $order->id) }}" method="POST" style="display:inline-block;">
