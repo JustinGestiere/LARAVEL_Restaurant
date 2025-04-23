@@ -6,7 +6,7 @@
 
     <a href="{{ route('restaurants.index') }}" class="btn btn-secondary mb-3">Retour à la liste</a>
     @if(Auth::check())
-    <a href="{{ route('restaurants.create') }}" class="btn btn-primary mb-3">Créer un restaurant</a>
+
     @endif
 
     <ul class="list-group mb-4">

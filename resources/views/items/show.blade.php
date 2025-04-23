@@ -6,7 +6,6 @@
 
     <div class="d-flex justify-content-between mb-3">
         <a href="{{ route('items.index') }}" class="btn btn-secondary">Retour à la liste</a>
-        <a href="{{ route('items.create') }}" class="btn btn-primary">Créer un item</a>
     </div>
 
     <div class="card shadow-lg p-4 mb-4">

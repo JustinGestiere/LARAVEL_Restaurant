@@ -5,7 +5,6 @@
     <h1 class="mb-4 text-center">Détails de la catégorie</h1>
 
     <a href="{{ route('categories.index') }}" class="btn btn-secondary mb-3">Retour à la liste</a>
-    <a href="{{ route('categories.create') }}" class="btn btn-primary mb-3">Créer une catégorie</a>
 
     <div class="card shadow-lg p-4 mb-4">
         <ul class="list-group list-group-flush">
