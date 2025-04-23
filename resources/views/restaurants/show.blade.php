@@ -5,7 +5,7 @@
     <h1 class="mb-4">Restaurant</h1>
 
     <a href="{{ route('restaurants.index') }}" class="btn btn-secondary mb-3">Retour à la liste</a>
-    @if(Auth::check())
+    @if(Auth::check() && (Auth::user()->role == 'admin' || Auth::user()->role == 'restaurateur' || Auth::user()->role == 'employe'))
 
     @endif
 
