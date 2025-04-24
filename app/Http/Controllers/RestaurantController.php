@@ -25,7 +25,7 @@ class RestaurantController extends Controller
         }
         
         // Si l'utilisateur est un restaurateur, montrer uniquement ses restaurants
-        if (Auth::user()->role == 'restaurateur') {
+        if (Auth::check() && Auth::user()->role == 'restaurateur') {
             $restaurants = Restaurant::with('categories')
                 ->where('restaurateur_id', Auth::id())
                 ->get();
