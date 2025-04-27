@@ -55,9 +55,21 @@ class OrderController extends Controller
 
     public function create()
     {
-        $restaurants = Restaurant::all();
-        $items = Item::all();
-        return view('orders.create', compact('restaurants', 'items'));
+        $user = auth()->user();
+        if ($user->role === 'admin') {
+            $restaurants = \App\Models\Restaurant::all();
+        } elseif ($user->role === 'restaurateur') {
+            $restaurants = $user->restaurantsRestaurateur()->get();
+        } elseif ($user->role === 'employe') {
+            $restaurants = $user->restaurantsEmploye()->get();
+        } else {
+            $restaurants = collect();
+        }
+        $items = \App\Models\Item::all();
+        return view('orders.create', [
+            'restaurants' => $restaurants,
+            'items' => $items
+        ]);
     }
 
     public function store(Request $request)
