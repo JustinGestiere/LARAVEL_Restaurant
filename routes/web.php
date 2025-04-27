@@ -62,5 +62,8 @@ Route::delete('/items/{id}/destroy', [ItemController::class, 'destroy'])->middle
 // Commandes
 Route::resource('orders', OrderController::class)->middleware('auth');
 
+// Tables (Salle)
+Route::resource('tables', TableController::class)->middleware('auth');
+
 // Routes d'authentification
 require __DIR__.'/auth.php';
