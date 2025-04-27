@@ -59,7 +59,6 @@ Route::put('/items/{id}/update', [ItemController::class, 'update'])->middleware(
 Route::delete('/items/{id}/destroy', [ItemController::class, 'destroy'])->middleware('auth')->name('items.destroy');
 
 // Commandes
-use App\Http\Controllers\OrderController;
 Route::resource('orders', OrderController::class)->middleware('auth');
 
 // Routes d'authentification
