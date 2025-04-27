@@ -38,9 +38,11 @@ class OrderController extends Controller
         if ($user->role === 'admin') {
             $orders = Order::latest()->paginate(10);
         } elseif ($user->role === 'restaurateur') {
-            $orders = Order::where('restaurant_id', $user->restaurant_id)->latest()->paginate(10);
+            $restaurantIds = $user->restaurantsRestaurateur()->pluck('restaurants.id');
+            $orders = Order::whereIn('restaurant_id', $restaurantIds)->latest()->paginate(10);
         } elseif ($user->role === 'employe') {
-            $orders = Order::where('restaurant_id', $user->restaurant_id)->latest()->paginate(10);
+            $restaurantIds = $user->restaurantsEmploye()->pluck('restaurants.id');
+            $orders = Order::whereIn('restaurant_id', $restaurantIds)->latest()->paginate(10);
         } else {
             $orders = Order::where('user_id', $user->id)->latest()->paginate(10);
         }
