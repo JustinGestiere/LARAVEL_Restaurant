@@ -81,6 +81,8 @@ class OrderController extends Controller
             'items' => 'required|array',
             'items.*' => 'exists:items,id',
             'quantities' => 'required|array',
+            'order_type' => 'required|string',
+            'table_id' => 'nullable|exists:tables,id',
         ]);
         $user = auth()->user();
         $restaurant_id = $request->restaurant_id;
@@ -104,6 +106,11 @@ class OrderController extends Controller
         $order->restaurant_id = $restaurant_id;
         $order->status = 'en attente';
         $order->total = 0;
+        $order->order_type = $request->order_type;
+        // Si sur place, on associe la table
+        if ($request->order_type === 'sur_place') {
+            $order->table_id = $request->table_id;
+        }
         $order->save();
         $total = 0;
         $selected_items = $request->selected_items ?? [];
