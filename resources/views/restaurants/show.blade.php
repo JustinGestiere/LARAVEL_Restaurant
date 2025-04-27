@@ -14,6 +14,26 @@
         <li class="list-group-item"><strong>Nom :</strong> {{ $restaurant->name }}</li>
         <li class="list-group-item"><strong>Créé le :</strong> {{ $restaurant->created_at }}</li>
         <li class="list-group-item"><strong>Mis à jour le :</strong> {{ $restaurant->updated_at }}</li>
+        <li class="list-group-item">
+            <strong>Restaurateurs affiliés :</strong>
+            <ul>
+                @forelse($restaurant->restaurateurs as $restaurateur)
+                    <li>{{ $restaurateur->name }} {{ $restaurateur->prenom }}</li>
+                @empty
+                    <li>Aucun restaurateur affilié</li>
+                @endforelse
+            </ul>
+        </li>
+        <li class="list-group-item">
+            <strong>Employés affiliés :</strong>
+            <ul>
+                @forelse($restaurant->employes as $employe)
+                    <li>{{ $employe->name }} {{ $employe->prenom }}</li>
+                @empty
+                    <li>Aucun employé affilié</li>
+                @endforelse
+            </ul>
+        </li>
     </ul>
 
     <h2 class="mb-3">Catégories</h2>

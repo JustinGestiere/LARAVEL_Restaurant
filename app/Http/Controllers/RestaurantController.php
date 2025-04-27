@@ -62,8 +62,8 @@ class RestaurantController extends Controller
     }
 
     public function show($id) {
-        return view('restaurants.show', 
-        ['restaurant' => Restaurant::findOrFail($id)]);
+        $restaurant = Restaurant::with(['restaurateurs', 'employes'])->findOrFail($id);
+        return view('restaurants.show', ['restaurant' => $restaurant]);
     }
 
     public function edit($id) {
