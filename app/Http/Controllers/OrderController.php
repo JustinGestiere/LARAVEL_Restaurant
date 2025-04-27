@@ -75,7 +75,7 @@ class OrderController extends Controller
         $order->total = 0;
         $order->save();
         $total = 0;
-        foreach ($request->items as $i => $item_id) {
+        foreach ($request->selected_items as $i => $item_id) {
             $quantity = $request->quantities[$i];
             $item = Item::find($item_id);
             $order->items()->attach($item_id, [

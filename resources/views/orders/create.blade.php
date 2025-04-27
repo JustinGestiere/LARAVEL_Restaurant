@@ -95,11 +95,28 @@
                 @endforeach
             </select>
         </div>
-        <div class="mb-3">
-            <label for="quantities" class="form-label">Quantités (dans l'ordre des items sélectionnés)</label>
-            <input type="text" name="quantities[]" class="form-control" placeholder="Ex: 2,1,3" required>
-            <small class="form-text text-muted">Séparez les quantités par des virgules, dans le même ordre que les items sélectionnés.</small>
-        </div>
+        <div id="quantities_block"></div>
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // ... (code existant pour tables)
+            const itemsSelect = document.getElementById('items');
+            const quantitiesBlock = document.getElementById('quantities_block');
+            function updateQuantities() {
+                const selected = Array.from(itemsSelect.selectedOptions);
+                let html = '';
+                selected.forEach(option => {
+                    html += `<div class='mb-2'>
+                        <label>Quantité pour <strong>${option.text}</strong> :</label>
+                        <input type='number' name='quantities[]' min='1' value='1' class='form-control' required />
+                        <input type='hidden' name='selected_items[]' value='${option.value}' />
+                    </div>`;
+                });
+                quantitiesBlock.innerHTML = html;
+            }
+            itemsSelect.addEventListener('change', updateQuantities);
+            updateQuantities();
+        });
+        </script>
         <button type="submit" class="btn btn-primary">Valider la commande</button>
     </form>
 </div>
