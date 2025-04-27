@@ -9,9 +9,20 @@ use App\Models\Restaurant;
 class CategoryController extends Controller
 {
     public function index() {
+        $user = auth()->user();
+        if ($user->role === 'admin') {
+            $categories = Category::with('restaurant')->get();
+        } elseif ($user->role === 'restaurateur') {
+            $restaurantIds = $user->restaurantsRestaurateur()->pluck('restaurants.id');
+            $categories = Category::whereIn('restaurant_id', $restaurantIds)->with('restaurant')->get();
+        } elseif ($user->role === 'employe') {
+            $restaurantIds = $user->restaurantsEmploye()->pluck('restaurants.id');
+            $categories = Category::whereIn('restaurant_id', $restaurantIds)->with('restaurant')->get();
+        } else {
+            $categories = collect(); // client : rien
+        }
         return view('categories.index', [
-            // 'categories' => Category::all()
-            'categories' => Category::with('restaurant')->get()
+            'categories' => $categories
         ]);
     }
 
@@ -36,8 +47,20 @@ class CategoryController extends Controller
     }
 
     public function show($id) {
-        return view('categories.show',
-        ['category' => Category::findOrFail($id)]);
+        $category = Category::findOrFail($id);
+        $user = auth()->user();
+        if ($user->role === 'admin') {
+            // ok
+        } elseif ($user->role === 'restaurateur') {
+            $restaurantIds = $user->restaurantsRestaurateur()->pluck('restaurants.id');
+            if (!$restaurantIds->contains($category->restaurant_id)) { abort(403); }
+        } elseif ($user->role === 'employe') {
+            $restaurantIds = $user->restaurantsEmploye()->pluck('restaurants.id');
+            if (!$restaurantIds->contains($category->restaurant_id)) { abort(403); }
+        } else {
+            abort(403);
+        }
+        return view('categories.show', ['category' => $category]);
     }
 
     public function edit($id) {

@@ -10,8 +10,22 @@ use Illuminate\Support\Facades\Auth;
 class ItemController extends Controller
 {
     public function index() {
+        $user = auth()->user();
+        if ($user->role === 'admin') {
+            $items = Item::with('category')->get();
+        } elseif ($user->role === 'restaurateur') {
+            $restaurantIds = $user->restaurantsRestaurateur()->pluck('restaurants.id');
+            $categoryIds = \App\Models\Category::whereIn('restaurant_id', $restaurantIds)->pluck('id');
+            $items = Item::whereIn('category_id', $categoryIds)->with('category')->get();
+        } elseif ($user->role === 'employe') {
+            $restaurantIds = $user->restaurantsEmploye()->pluck('restaurants.id');
+            $categoryIds = \App\Models\Category::whereIn('restaurant_id', $restaurantIds)->pluck('id');
+            $items = Item::whereIn('category_id', $categoryIds)->with('category')->get();
+        } else {
+            $items = collect(); // client : rien
+        }
         return view('items.index', [
-            'items' => Item::with('category')->get() //modification du categories en category
+            'items' => $items
         ]);
     }
 
@@ -32,8 +46,22 @@ class ItemController extends Controller
     }
 
     public function show($id) {
+        $item = Item::findOrFail($id);
+        $user = auth()->user();
+        $category = $item->category;
+        if ($user->role === 'admin') {
+            // ok
+        } elseif ($user->role === 'restaurateur') {
+            $restaurantIds = $user->restaurantsRestaurateur()->pluck('restaurants.id');
+            if (!$restaurantIds->contains($category->restaurant_id)) { abort(403); }
+        } elseif ($user->role === 'employe') {
+            $restaurantIds = $user->restaurantsEmploye()->pluck('restaurants.id');
+            if (!$restaurantIds->contains($category->restaurant_id)) { abort(403); }
+        } else {
+            abort(403);
+        }
         return view('items.show', [
-            'item' => Item::findOrFail($id)
+            'item' => $item
         ]);
     }
 
