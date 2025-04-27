@@ -30,18 +30,41 @@ class ItemController extends Controller
     }
 
     public function create() {
-        // Récupère toutes les catégories
-        $categories = Category::all();
-    
+        $user = auth()->user();
+        if ($user->role === 'admin') {
+            $categories = Category::all();
+        } elseif ($user->role === 'restaurateur') {
+            $restaurantIds = $user->restaurantsRestaurateur()->pluck('restaurants.id');
+            $categories = Category::whereIn('restaurant_id', $restaurantIds)->get();
+        } elseif ($user->role === 'employe') {
+            $restaurantIds = $user->restaurantsEmploye()->pluck('restaurants.id');
+            $categories = Category::whereIn('restaurant_id', $restaurantIds)->get();
+        } else {
+            $categories = collect();
+        }
         return view('items.create', [
-            'categories' => $categories  // Passe la variable $categories à la vue
+            'categories' => $categories
         ]);
     }
     
 
     public function store(Request $request) {
-        Item::create( $request->all() );
-        
+        $user = auth()->user();
+        $category_id = $request->get('category_id');
+        if ($user->role === 'admin') {
+            // ok
+        } elseif ($user->role === 'restaurateur') {
+            $restaurantIds = $user->restaurantsRestaurateur()->pluck('restaurants.id');
+            $ids = \App\Models\Category::whereIn('restaurant_id', $restaurantIds)->pluck('id');
+            if (!$ids->contains($category_id)) abort(403);
+        } elseif ($user->role === 'employe') {
+            $restaurantIds = $user->restaurantsEmploye()->pluck('restaurants.id');
+            $ids = \App\Models\Category::whereIn('restaurant_id', $restaurantIds)->pluck('id');
+            if (!$ids->contains($category_id)) abort(403);
+        } else {
+            abort(403);
+        }
+        Item::create($request->all());
         return redirect()->route('items.index');
     }
 

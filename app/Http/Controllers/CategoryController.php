@@ -27,22 +27,39 @@ class CategoryController extends Controller
     }
 
     public function create() {
-        // return view('categories.create');
+        $user = auth()->user();
+        if ($user->role === 'admin') {
+            $restaurants = Restaurant::with('categories')->get();
+        } elseif ($user->role === 'restaurateur') {
+            $restaurants = $user->restaurantsRestaurateur()->with('categories')->get();
+        } elseif ($user->role === 'employe') {
+            $restaurants = $user->restaurantsEmploye()->with('categories')->get();
+        } else {
+            $restaurants = collect();
+        }
         return view('categories.create', [
-            'restaurants' => Restaurant::with('categories')->get()
+            'restaurants' => $restaurants
         ]);
     }
 
     public function store(Request $request) {
-        // Category::create( $request->all() );
-
+        $user = auth()->user();
+        $restaurant_id = $request->get('restaurant_id');
+        if ($user->role === 'admin') {
+            // ok
+        } elseif ($user->role === 'restaurateur') {
+            $ids = $user->restaurantsRestaurateur()->pluck('restaurants.id');
+            if (!$ids->contains($restaurant_id)) abort(403);
+        } elseif ($user->role === 'employe') {
+            $ids = $user->restaurantsEmploye()->pluck('restaurants.id');
+            if (!$ids->contains($restaurant_id)) abort(403);
+        } else {
+            abort(403);
+        }
         $category = new Category();
-
         $category->name = $request->get('name');
-        $category->restaurant_id = $request->get('restaurant_id');
-
+        $category->restaurant_id = $restaurant_id;
         $category->save();
-
         return redirect()->route('categories.index');
     }
 
