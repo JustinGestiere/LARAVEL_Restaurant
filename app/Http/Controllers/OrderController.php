@@ -161,8 +161,13 @@ class OrderController extends Controller
     {
         $user = Auth::user();
         if ($user->role === 'admin') return true;
-        if ($user->role === 'restaurateur' || $user->role === 'employe') {
-            if ($order->restaurant_id == $user->restaurant_id) return true;
+        if ($user->role === 'restaurateur') {
+            $ids = $user->restaurantsRestaurateur()->pluck('restaurants.id')->toArray();
+            if (in_array($order->restaurant_id, $ids)) return true;
+        }
+        if ($user->role === 'employe') {
+            $ids = $user->restaurantsEmploye()->pluck('restaurants.id')->toArray();
+            if (in_array($order->restaurant_id, $ids)) return true;
         }
         if ($user->role === 'client' && $order->user_id == $user->id) return true;
         abort(403);
