@@ -68,9 +68,22 @@ class OrderController extends Controller
             'items.*' => 'exists:items,id',
             'quantities' => 'required|array',
         ]);
+        $user = auth()->user();
+        $restaurant_id = $request->restaurant_id;
+        if ($user->role === 'admin') {
+            // ok
+        } elseif ($user->role === 'restaurateur') {
+            $ids = $user->restaurantsRestaurateur()->pluck('restaurants.id');
+            if (!$ids->contains($restaurant_id)) abort(403);
+        } elseif ($user->role === 'employe') {
+            $ids = $user->restaurantsEmploye()->pluck('restaurants.id');
+            if (!$ids->contains($restaurant_id)) abort(403);
+        } else {
+            abort(403);
+        }
         $order = new Order();
         $order->user_id = Auth::id();
-        $order->restaurant_id = $request->restaurant_id;
+        $order->restaurant_id = $restaurant_id;
         $order->status = 'en attente';
         $order->total = 0;
         $order->save();
