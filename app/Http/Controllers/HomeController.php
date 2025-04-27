@@ -28,19 +28,13 @@ class HomeController extends Controller
      */
     public function dashboard()
     {
-        // Si l'utilisateur est un employé, le rediriger vers la page des items
-        if (Auth::user()->role == 'employe') {
-            return redirect()->route('items.index')->with('info', 'Les employés n\'ont pas accès au tableau de bord.');
-        }
-        
-        // Pour les autres rôles, afficher le tableau de bord avec les statistiques
+        // Tous les rôles (client, employé, restaurateur) accèdent au même dashboard
         $stats = [
             'restaurants' => Restaurant::count(),
             'categories' => Category::count(),
             'items' => Item::count(),
             'users' => User::count()
         ];
-        
         return view('dashboard', compact('stats'));
     }
 }
