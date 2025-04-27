@@ -11,9 +11,7 @@ class Restaurant extends Model
     protected $table = "restaurants";
 
     protected $fillable = [
-        "name",
-        "restaurateur_id",
-        "employe_id"
+        "name"
     ];
 
     public function categories()
@@ -21,13 +19,13 @@ class Restaurant extends Model
         return $this->hasMany(Category::class);
     }
     
-    public function restaurateur()
+    public function restaurateurs()
     {
-        return $this->belongsTo(User::class, 'restaurateur_id');
+        return $this->belongsToMany(User::class, 'restaurant_user')->withTimestamps();
     }
-    
-    public function employe()
+
+    public function employes()
     {
-        return $this->belongsTo(User::class, 'employe_id');
+        return $this->belongsToMany(User::class, 'employe_restaurant')->withTimestamps();
     }
 }

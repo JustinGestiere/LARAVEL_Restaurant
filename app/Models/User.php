@@ -47,4 +47,20 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    /**
+     * Restaurants où l'utilisateur est restaurateur
+     */
+    public function restaurantsRestaurateur()
+    {
+        return $this->belongsToMany(Restaurant::class, 'restaurant_user')->withTimestamps();
+    }
+
+    /**
+     * Restaurants où l'utilisateur est employé
+     */
+    public function restaurantsEmploye()
+    {
+        return $this->belongsToMany(Restaurant::class, 'employe_restaurant')->withTimestamps();
+    }
 }
