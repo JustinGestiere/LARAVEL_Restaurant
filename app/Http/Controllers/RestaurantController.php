@@ -67,17 +67,36 @@ class RestaurantController extends Controller
     }
 
     public function edit($id) {
+        $restaurant = Restaurant::findOrFail($id);
+        $restaurateurs = User::where('role', 'restaurateur')->get();
+        $employes = User::where('role', 'employe')->get();
+        $selectedRestaurateurs = $restaurant->restaurateurs->pluck('id')->toArray();
+        $selectedEmployes = $restaurant->employes->pluck('id')->toArray();
         return view('restaurants.edit', [
-            'restaurant' => Restaurant::findOrFail($id)
+            'restaurant' => $restaurant,
+            'restaurateurs' => $restaurateurs,
+            'employes' => $employes,
+            'selectedRestaurateurs' => $selectedRestaurateurs,
+            'selectedEmployes' => $selectedEmployes
         ]);
     }
 
     public function update(Request $request, $id) {
         $restaurant = Restaurant::findOrFail($id);
-
         $restaurant->name = $request->get('name');
         $restaurant->save();
-
+        // Mise à jour des restaurateurs affiliés
+        if ($request->has('restaurateurs')) {
+            $restaurant->restaurateurs()->sync($request->restaurateurs);
+        } else {
+            $restaurant->restaurateurs()->sync([]);
+        }
+        // Mise à jour des employés affiliés
+        if ($request->has('employes')) {
+            $restaurant->employes()->sync($request->employes);
+        } else {
+            $restaurant->employes()->sync([]);
+        }
         return redirect()->route('restaurants.index');
     }
 

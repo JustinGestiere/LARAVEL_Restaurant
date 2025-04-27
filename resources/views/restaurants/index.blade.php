@@ -18,6 +18,8 @@
                 <tr>
                     <th>ID</th>
                     <th>Nom</th>
+                    <th>Restaurateurs</th>
+                    <th>Employés</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -26,6 +28,16 @@
                     <tr>
                         <td>{{ $restaurant->id }}</td>
                         <td>{{ $restaurant->name }}</td>
+                        <td>
+                            @foreach($restaurant->restaurateurs as $restaurateur)
+                                <span class="badge bg-primary">{{ $restaurateur->name }} {{ $restaurateur->prenom }}</span>
+                            @endforeach
+                        </td>
+                        <td>
+                            @foreach($restaurant->employes as $employe)
+                                <span class="badge bg-secondary">{{ $employe->name }} {{ $employe->prenom }}</span>
+                            @endforeach
+                        </td>
                         <td>
                             <div class="d-flex">
                                 <a href="{{ route('restaurants.show', $restaurant->id) }}" 
