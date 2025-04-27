@@ -75,6 +75,9 @@
                     <!-- Commandes - accessible à tous les utilisateurs connectés mais avec des fonctionnalités différentes -->
                     <li><a href="{{ route('orders.index') }}"> <i class="fa fa-shopping-cart"></i>Commandes <span class=""></span></a></li>
                     
+                    @if(in_array(Auth::user()->role, ['admin', 'restaurateur', 'employe']))
+                    <li><a href="{{ route('tables.index') }}"> <i class="fa fa-th-large"></i>Salle <span class=""></span></a></li>
+                    @endif
 
                 </ul>
                 @else
