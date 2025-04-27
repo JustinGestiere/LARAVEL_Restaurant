@@ -19,8 +19,8 @@
         </div>
     </div>
     
-    <!-- Statistiques (masquées pour les clients) -->
-    @if(Str::lower(trim(auth()->user()->role)) !== 'client')
+    <!-- Statistiques (affichées uniquement pour les admins) -->
+    @if(Str::lower(trim(auth()->user()->role)) === 'admin')
     <div class="row">
         <div class="col-md-3 mb-4">
             <div class="card border-primary">
