@@ -39,15 +39,25 @@ class RestaurantController extends Controller
     }
 
     public function create() {
-        // return view('restaurants.create');
+        $restaurateurs = User::where('role', 'restaurateur')->get();
+        $employes = User::where('role', 'employe')->get();
         return view('restaurants.create', [
-            'restaurants' => Restaurant::with('categories')->get()
+            'restaurants' => Restaurant::with('categories')->get(),
+            'restaurateurs' => $restaurateurs,
+            'employes' => $employes
         ]);
     }
 
     public function store(Request $request) {
-        Restaurant::create( $request->all() );
-        
+        $restaurant = Restaurant::create([ 'name' => $request->name ]);
+        // Restaurateurs (optionnel)
+        if ($request->has('restaurateurs')) {
+            $restaurant->restaurateurs()->sync($request->restaurateurs);
+        }
+        // Employés (optionnel)
+        if ($request->has('employes')) {
+            $restaurant->employes()->sync($request->employes);
+        }
         return redirect()->route('restaurants.index');
     }
 
