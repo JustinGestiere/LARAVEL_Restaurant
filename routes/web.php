@@ -1,12 +1,16 @@
 <?php
 
 use App\Http\Controllers\RestaurantController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
+
+// API tables disponibles (pour le JS du formulaire commande)
+Route::get('/api/tables-disponibles', [OrderController::class, 'apiTablesDisponibles']);
 
 // Routes publiques - PAS DE CLOSURES
 Route::get('/', [HomeController::class, 'index']);

@@ -9,6 +9,29 @@ use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
+    /**
+     * Retourne les tables disponibles pour un restaurant et un nombre de personnes donné (API simple).
+     */
+    public function apiTablesDisponibles(Request $request)
+    {
+        $restaurant_id = $request->query('restaurant_id');
+        $nb_personnes = $request->query('nb_personnes', 1);
+        $tables = \App\Models\Table::where('restaurant_id', $restaurant_id)
+            ->where('seats', '>=', $nb_personnes)
+            ->get();
+        $tables_disponibles = [];
+        foreach ($tables as $table) {
+            $hasActiveOrder = $table->orders()->where('status', '!=', 'terminée')->exists();
+            if (!$hasActiveOrder) {
+                $tables_disponibles[] = [
+                    'id' => $table->id,
+                    'name' => $table->name,
+                    'seats' => $table->seats
+                ];
+            }
+        }
+        return response()->json($tables_disponibles);
+    }
     public function index()
     {
         $user = Auth::user();

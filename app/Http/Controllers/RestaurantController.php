@@ -64,8 +64,19 @@ class RestaurantController extends Controller
     }
 
     public function show($id) {
-        $restaurant = Restaurant::with(['restaurateurs', 'employes'])->findOrFail($id);
-        return view('restaurants.show', ['restaurant' => $restaurant]);
+        $restaurant = Restaurant::with(['restaurateurs', 'employes'])
+            ->findOrFail($id);
+        // Charger les tables du restaurant
+        $tables = \App\Models\Table::where('restaurant_id', $restaurant->id)->get();
+        // Pour chaque table, vérifier si elle est disponible (aucune commande en cours, status != 'terminée')
+        foreach ($tables as $table) {
+            $hasActiveOrder = $table->orders()->where('status', '!=', 'terminée')->exists();
+            $table->disponible = !$hasActiveOrder;
+        }
+        return view('restaurants.show', [
+            'restaurant' => $restaurant,
+            'tables' => $tables
+        ]);
     }
 
     public function edit($id) {

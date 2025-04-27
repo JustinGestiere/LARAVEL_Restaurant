@@ -36,6 +36,27 @@
         </li>
     </ul>
 
+    <h2 class="mb-3">Salle / Tables</h2>
+    <div class="row">
+        @forelse($tables as $table)
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ $table->name }}</h5>
+                        <p class="card-text">Places : {{ $table->seats }}</p>
+                        @if($table->disponible)
+                            <span class="badge bg-success">Disponible</span>
+                        @else
+                            <span class="badge bg-danger">Occupée</span>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        @empty
+            <div class="col-12">Aucune table enregistrée pour ce restaurant.</div>
+        @endforelse
+    </div>
+
     <h2 class="mb-3">Catégories</h2>
 
     <ul class="list-group">
