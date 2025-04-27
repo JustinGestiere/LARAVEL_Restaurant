@@ -75,7 +75,12 @@ class OrderController extends Controller
         $order->total = 0;
         $order->save();
         $total = 0;
-        foreach ($request->selected_items as $i => $item_id) {
+        $selected_items = $request->selected_items ?? [];
+        $quantities = $request->quantities ?? [];
+        if (empty($selected_items)) {
+            return redirect()->back()->with('error', 'Veuillez sélectionner au moins un item.');
+        }
+        foreach ($selected_items as $i => $item_id) {
             $quantity = $request->quantities[$i];
             $item = Item::find($item_id);
             $order->items()->attach($item_id, [
