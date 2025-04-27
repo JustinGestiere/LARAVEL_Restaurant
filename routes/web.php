@@ -7,6 +7,7 @@ use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\TableController;
 use Illuminate\Support\Facades\Route;
 
 // API tables disponibles (pour le JS du formulaire commande)

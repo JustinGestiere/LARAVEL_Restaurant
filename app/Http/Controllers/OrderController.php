@@ -73,13 +73,17 @@ class OrderController extends Controller
         if ($user->role === 'admin') {
             // ok
         } elseif ($user->role === 'restaurateur') {
-            $ids = $user->restaurantsRestaurateur()->pluck('restaurants.id');
-            if (!$ids->contains($restaurant_id)) abort(403);
+            $ids = $user->restaurantsRestaurateur()->pluck('restaurants.id')->toArray();
+            if (!in_array($restaurant_id, $ids)) {
+                return redirect()->back()->with('error', "Vous ne pouvez pas commander dans ce restaurant.");
+            }
         } elseif ($user->role === 'employe') {
-            $ids = $user->restaurantsEmploye()->pluck('restaurants.id');
-            if (!$ids->contains($restaurant_id)) abort(403);
+            $ids = $user->restaurantsEmploye()->pluck('restaurants.id')->toArray();
+            if (!in_array($restaurant_id, $ids)) {
+                return redirect()->back()->with('error', "Vous ne pouvez pas commander dans ce restaurant.");
+            }
         } else {
-            abort(403);
+            return redirect()->back()->with('error', "Accès non autorisé");
         }
         $order = new Order();
         $order->user_id = Auth::id();
