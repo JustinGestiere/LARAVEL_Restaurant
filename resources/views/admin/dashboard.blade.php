@@ -1,6 +1,11 @@
+{{--
+    Page : admin/dashboard.blade.php
+    Description : Tableau de bord administrateur affichant les statistiques principales (nombre de clients, restaurateurs, employés, admins, restaurants, catégories, plats)
+--}}
 @extends('layout.main')
 @section('content')
 <div class="container mt-4">
+    {{-- Cartes de statistiques utilisateurs --}}
     <h1>Tableau de bord administrateur</h1>
     <div class="row mt-4">
         <div class="col-md-3">
@@ -36,6 +41,7 @@
             </div>
         </div>
     </div>
+        {{-- Cartes de statistiques restaurants, catégories, plats --}}
     <div class="row">
         <div class="col-md-4">
             <div class="card text-white bg-warning mb-3">

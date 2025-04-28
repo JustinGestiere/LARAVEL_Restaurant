@@ -1,10 +1,17 @@
+{{--
+    Page : orders/create.blade.php
+    Description : Formulaire de création d'une nouvelle commande (choix restaurant, table, items, quantités, etc)
+--}}
 @extends('layout.main')
 @section('content')
 <div class="container mt-5">
+    {{-- En-tête et bouton retour --}}
     <h1 class="mb-4 text-primary">Nouvelle commande</h1>
     <a href="{{ route('orders.index') }}" class="btn btn-secondary mb-3">Retour à la liste</a>
+        {{-- Formulaire de création de commande --}}
     <form action="{{ route('orders.store') }}" method="POST">
         @csrf
+                {{-- Sélection du type de commande --}}
         <div class="mb-3">
             <label class="form-label">Type de commande</label><br>
             <div class="form-check form-check-inline">
@@ -16,6 +23,7 @@
                 <label class="form-check-label" for="a_emporter">À emporter</label>
             </div>
         </div>
+                {{-- Sélection du restaurant --}}
         <div class="mb-3">
             <label for="restaurant_id" class="form-label">Restaurant</label>
             <select name="restaurant_id" id="restaurant_id" class="form-select" required>
@@ -25,10 +33,12 @@
                 @endforeach
             </select>
         </div>
+                {{-- Nombre de personnes (si sur place) --}}
         <div class="mb-3" id="nb_personnes_block">
             <label for="nb_personnes" class="form-label">Nombre de personnes</label>
             <input type="number" min="1" name="nb_personnes" id="nb_personnes" class="form-control" value="1" required>
         </div>
+                {{-- Sélection de la table (si sur place) --}}
         <div class="mb-3" id="table_block">
             <label for="table_id" class="form-label">Table (si sur place)</label>
             <select name="table_id" id="table_id" class="form-select">
@@ -87,6 +97,7 @@
             updateTableBlock();
         });
         </script>
+                {{-- Sélection des items --}}
         <div class="mb-3">
             <label for="items" class="form-label">Items</label>
             <select name="items[]" id="items" class="form-select" multiple required>
@@ -95,6 +106,7 @@
                 @endforeach
             </select>
         </div>
+                {{-- Bloc pour la saisie des quantités par item --}}
         <div id="quantities_block"></div>
         <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -117,6 +129,7 @@
             updateQuantities();
         });
         </script>
+                {{-- Bouton de validation du formulaire --}}
         <button type="submit" class="btn btn-primary">Valider la commande</button>
     </form>
 </div>

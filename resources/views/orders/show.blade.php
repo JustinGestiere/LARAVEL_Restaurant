@@ -1,6 +1,11 @@
+{{--
+    Page : orders/show.blade.php
+    Description : Affichage des détails d'une commande (items, quantités, total, actions).
+--}}
 @extends('layout.main')
 @section('content')
 <div class="container mt-5">
+    {{-- Détails de la commande --}}
     <h1 class="mb-4 text-primary">Détail de la commande #{{ $order->id }}</h1>
     @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>

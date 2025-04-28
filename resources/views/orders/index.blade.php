@@ -1,3 +1,11 @@
+{{--
+    Page : orders/index.blade.php
+    Description : Liste des commandes avec options de création, modification, suppression et affichage des détails.
+--}}
+{{--
+    Page : orders/index.blade.php
+    Description : Liste des commandes avec options de création, modification, suppression et affichage des détails.
+--}}
 @extends('layout.main')
 
 @section('content')
@@ -6,7 +14,10 @@
     @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
+        {{-- Bouton de création de commande (pour les rôles autorisés) --}}
     <a href="{{ route('orders.create') }}" class="btn btn-success mb-3">Nouvelle commande</a>
+        {{-- Tableau des commandes --}}
+        {{-- Tableau des commandes --}}
     <div class="table-responsive">
         <table class="table table-bordered table-striped table-hover">
             <thead class="table-dark">

@@ -1,4 +1,14 @@
+{{--
+    Page : categories/create.blade.php
+    Description : Formulaire de création d'une catégorie (nom, restaurant associé, etc).
+--}}
+{{-- Commentaire général : Formulaire de création de catégorie --}}
+
 @extends('layout.main')
+
+{{-- Section scripts éventuels --}}
+@section('scripts')
+@endsection
 
 @section('content')
 <!DOCTYPE html>
@@ -10,11 +20,14 @@
 </head>
 <body>
     <div class="container mt-5">
+    {{-- Formulaire de création de catégorie --}}
         <h1>Création catégorie</h1>
         
         <a href="{{ route('categories.index') }}" class="btn btn-secondary mb-3">Retour à la liste</a>
         
-        <form action="{{ route('categories.store') }}" method="POST">
+            {{-- Début du formulaire --}}
+            <form action="{{ route('categories.store') }}" method="POST">
+        {{-- Champs du formulaire --}}
             @csrf
             <div class="mb-3">
                 <label for="name" class="form-label">Nom :</label>
@@ -29,8 +42,10 @@
                     @endforeach
                 </select>
             </div>
-            <button type="submit" class="btn btn-primary">Envoyer</button>
-        </form>
+            {{-- Bouton de validation --}}
+            <button type="submit" class="btn btn-primary">Créer</button>
+            </form>
+    {{-- Fin du formulaire --}}
     </div>
     
     <!-- Ajout de Bootstrap JS pour une meilleure interactivité -->
@@ -38,3 +53,4 @@
 </body>
 </html>
 @endsection
+{{-- Fin du fichier --}}

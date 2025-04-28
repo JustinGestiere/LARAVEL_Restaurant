@@ -1,3 +1,7 @@
+{{--
+    Page : restaurants/index.blade.php
+    Description : Liste des restaurants avec options de création, modification, suppression et affichage des restaurateurs/employés.
+--}}
 @extends('layout.main')
 
 @section('content')
@@ -12,6 +16,7 @@
     @endif
 @endauth
 
+        {{-- Tableau des restaurants --}}
     <div class="table-responsive">
         <table class="table table-bordered table-striped table-hover">
             <thead class="table-dark">
@@ -39,7 +44,8 @@
                             @endforeach
                         </td>
                         <td>
-                            <div class="d-flex">
+                                                            {{-- Actions (voir, modifier, supprimer) --}}
+                                <div class="d-flex">
                                 <a href="{{ route('restaurants.show', $restaurant->id) }}" 
                                    class="btn btn-info btn-sm me-2">
                                     <i class="fas fa-eye"></i> Voir

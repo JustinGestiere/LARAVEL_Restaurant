@@ -1,12 +1,18 @@
+{{--
+    Page : restaurants/create.blade.php
+    Description : Formulaire de création d'un restaurant (nom, restaurateurs, employés, etc).
+--}}
 @extends('layout.main')
 
 @section('content')
 <div class="container mt-5">
+    {{-- Formulaire de création de restaurant --}}
     <h1 class="mb-4 text-primary">Créer un restaurant</h1>
 
     <a href="{{ route('restaurants.index') }}" class="btn btn-secondary mb-3">Retour à la liste</a>
 
-    <form action="{{ route('restaurants.store') }}" method="POST">
+        <form action="{{ route('restaurants.store') }}" method="POST">
+        {{-- Champs du formulaire --}}
         @csrf
         <div class="mb-3">
             <label for="name" class="form-label">Nom : </label>
@@ -29,7 +35,9 @@
             </select>
         </div>
         <button type="submit" class="btn btn-primary">Envoyer</button>
-    </form>
+        </form>
+    {{-- Fin du formulaire --}}
 </div>
 @endsection
+{{-- Fin du fichier --}}
 

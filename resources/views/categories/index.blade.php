@@ -1,3 +1,7 @@
+{{--
+    Page : categories/index.blade.php
+    Description : Liste des catégories avec options de création, modification, suppression.
+--}}
 @extends('layout.main')
 
 @section('content')
@@ -10,6 +14,7 @@
     </a>
     @endif
 
+        {{-- Tableau des catégories --}}
     <div class="table-responsive">
         <table class="table table-bordered table-striped table-hover">
             <thead class="table-dark">
@@ -32,7 +37,8 @@
                             </a>
                         </td>
                         <td>
-                            <div class="d-flex">
+                                                            {{-- Actions (voir, modifier, supprimer) --}}
+                                <div class="d-flex">
                                 <a href="{{ route('categories.show', $category->id) }}" 
                                    class="btn btn-info btn-sm me-2">
                                     <i class="fas fa-eye"></i> Voir

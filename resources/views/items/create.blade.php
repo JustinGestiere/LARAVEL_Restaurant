@@ -1,3 +1,7 @@
+{{--
+    Page : items/create.blade.php
+    Description : Formulaire de création d'un item/plat (nom, prix, catégorie, etc).
+--}}
 @extends('layout.main')
 
 @section('content')
@@ -7,7 +11,8 @@
     <a href="{{ route('items.index') }}" class="btn btn-secondary mb-3">Retour à la liste</a>
 
     <div class="card shadow-lg p-4">
-        <form action="{{ route('items.store') }}" method="POST">
+            <form action="{{ route('items.store') }}" method="POST">
+        {{-- Champs du formulaire --}}
             @csrf
             <div class="mb-3">
                 <label for="name" class="form-label">Nom :</label>
@@ -37,7 +42,9 @@
                 </div>
             </div>
             <button type="submit" class="btn btn-primary w-100">Envoyer</button>
-        </form>
+            </form>
+    {{-- Fin du formulaire --}}
     </div>
 </div>
 @endsection
+{{-- Fin du fichier --}}
