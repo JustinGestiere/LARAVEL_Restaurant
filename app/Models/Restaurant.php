@@ -28,4 +28,10 @@ class Restaurant extends Model
     {
         return $this->belongsToMany(User::class, 'employe_restaurant')->withTimestamps();
     }
+
+    // Relation avec les avis
+    public function avis()
+    {
+        return $this->hasMany(\App\Models\Avis::class, 'id_restaurant');
+    }
 }
