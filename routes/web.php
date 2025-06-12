@@ -18,6 +18,10 @@ Route::get('/', [HomeController::class, 'index']);
 Route::get('/restaurants', [RestaurantController::class, 'index'])->name('restaurants.index');
 Route::get('/restaurants/{id}/show', [RestaurantController::class, 'show'])->name('restaurants.show');
 
+// Routes pour les avis
+Route::get('/restaurants/{restaurant}/avis/create', [App\Http\Controllers\AvisController::class, 'create'])->name('avis.create')->middleware('auth');
+Route::post('/restaurants/{restaurant}/avis', [App\Http\Controllers\AvisController::class, 'store'])->name('avis.store')->middleware('auth');
+
 // Routes authentifiées - TOUTES INDIVIDUELLES SANS GROUPE
 Route::get('/dashboard', [HomeController::class, 'dashboard'])->middleware('auth')->name('dashboard');
 
