@@ -51,6 +51,13 @@
                                     <i class="fas fa-eye"></i> Voir
                                 </a>
                                 @auth
+                                    @if(Str::lower(trim(Auth::user()->role)) === 'client')
+                                        <a href="{{ route('avis.create', ['restaurant' => $restaurant->id]) }}" class="btn btn-primary btn-sm me-2">
+                                            <i class="fas fa-comment"></i> Créer un avis
+                                        </a>
+                                    @endif
+                                @endauth
+                                @auth
     @if(Str::lower(trim(Auth::user()->role)) !== 'client')
         <a href="{{ route('restaurants.edit', $restaurant->id) }}" 
            class="btn btn-warning btn-sm me-2">

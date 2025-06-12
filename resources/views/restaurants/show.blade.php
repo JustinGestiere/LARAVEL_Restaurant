@@ -68,5 +68,25 @@
             </li>
         @endforeach
     </ul>
+
+{{-- Affichage des avis du restaurant --}}
+<h2 class="mt-5 mb-3">Avis des clients</h2>
+@forelse($restaurant->avis as $avis)
+    <div class="card mb-2">
+        <div class="card-body">
+            <strong>Note :</strong> {{ $avis->note }}/5 <br>
+            <strong>Avis :</strong> {{ $avis->avis }} <br>
+            <small>Posté le {{ $avis->date }}</small>
+            @if($avis->rep_avis)
+                <div class="mt-2 alert alert-info">
+                    <strong>Réponse du restaurateur :</strong> {{ $avis->rep_avis }}
+                </div>
+            @endif
+        </div>
+    </div>
+@empty
+    <p>Aucun avis pour ce restaurant.</p>
+@endforelse
+
 </div>
 @endsection
